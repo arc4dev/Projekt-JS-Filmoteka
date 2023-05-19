@@ -1,0 +1,20 @@
+// Colors
+$color-brand: #ff6b08;
+$color-primary: #ffffff;
+$color-primary-dark: #000000;
+$color-secondary: #8c8c8c;
+$color-footer: #545454;
+$color-warning: #ff001b;
+$color-background: #e5e5e5;
+$color-footer-background: #f7f7f7;
+
+// Fonts
+$font-primary: 'Roboto', sans-serif;
+
+// Transitions
+$transitionDurationDefault: 250ms;
+$transitionTimingDefault: cubic-bezier(0.4, 0, 0.2, 1);
+$transitionDefault: all $transitionDurationDefault $transitionTimingDefault;
+
+// Other
+$border-radius: 5px; // dla buttonow, zdjec filmow, etc

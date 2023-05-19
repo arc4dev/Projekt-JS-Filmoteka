@@ -1,0 +1,8 @@
+// Podstawowe wartosci to:
+// display: flex | justify-content: center | align-items: center
+// Uzycie => @include flex lub flex(flex, ...)
+@mixin flex($display: flex, $justify: center, $align: center) {
+  display: $display;
+  justify-content: $justify;
+  align-items: $align;
+}
