@@ -78,8 +78,10 @@ const listBuilder = moviesArray => {
       }
     }
     const releaseDate = new Date(`${el['release_date'] || el['first_air_date']}`);
-
-    movieData.innerHTML = `${movieGenresArray.join(', ')} | ${releaseDate.getFullYear()}`;
+    const voteAverage = el['vote_average'].toFixed(1);
+    movieData.innerHTML = `${movieGenresArray.join(
+      ', ',
+    )} | ${releaseDate.getFullYear()} | Rating: ${voteAverage}`;
 
     coverFigcaption.append(movieTitle);
     coverFigcaption.append(movieData);
