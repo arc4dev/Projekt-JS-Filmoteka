@@ -1,3 +1,5 @@
 import './sass/main.scss';
+import { renderMoviesList } from './js/movies-list';
 
-console.log('Hello world!');
+// Render trending movies on load
+renderMoviesList();
