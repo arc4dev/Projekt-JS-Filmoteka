@@ -1,12 +1,13 @@
 import axios from 'axios';
 import { API_KEY } from './config';
 import { API_LANGUAGE } from './config';
-
+import { API_URL } from './config';
+import { TRENDING_URL } from './config';
 const moviesContainer = document.querySelector('.covers-container');
 const genresList = {};
-const defaultMoviesURL = `https://api.themoviedb.org/3/trending/movie/week?api_key=${API_KEY}`;
-const TVGenresURL = `https://api.themoviedb.org/3/genre/tv/list?api_key=${API_KEY}&language=${API_LANGUAGE}`;
-const movieGenresURL = `https://api.themoviedb.org/3/genre/movie/list?api_key=${API_KEY}&language=${API_LANGUAGE}`;
+const defaultMoviesURL = TRENDING_URL;
+const TVGenresURL = `${API_URL}genre/tv/list?api_key=${API_KEY}&language=${API_LANGUAGE}`;
+const movieGenresURL = `${API_URL}genre/movie/list?api_key=${API_KEY}&language=${API_LANGUAGE}`;
 
 const getGenres = async url => {
   const genresResponse = await axios.get(url);
@@ -22,16 +23,14 @@ const getGenres = async url => {
 const getMovies = async url => {
   const moviesResponse = await axios.get(url);
   const moviesArray = moviesResponse.data.results;
-
   return moviesArray;
 };
 
-const getDataFromAPI = async (searchURL = defaultMoviesURL) => {
+export const renderMoviesList = async (searchURL = defaultMoviesURL) => {
   moviesContainer.innerHTML = '';
-  // zmienne do importu
-  const movieGenres = await getGenres(movieGenresURL);
-  const tvGenres = await getGenres(TVGenresURL);
-  const moviesList = getMovies(searchURL).then(response => {
+  await getGenres(movieGenresURL);
+  await getGenres(TVGenresURL);
+  getMovies(searchURL).then(response => {
     listBuilder(response);
   });
 };
@@ -100,5 +99,3 @@ const listBuilder = moviesArray => {
     }
   });
 };
-
-getDataFromAPI();
