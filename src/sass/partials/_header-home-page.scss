@@ -1,4 +1,5 @@
-.header {
+@import '_header-logo-nav-container';
+.header-main {
   padding-top: 40px;
   padding-bottom: 92px;
   width: 100%;
@@ -7,42 +8,7 @@
   @media screen and (min-resolution: 2dppx), (min-device-pixel-ratio: 2) {
     background-image: url(/src/images/header-home-mobile-background@2x.jpg);
   }
-  &_container {
-    max-width: 280px;
-    gap: 115px;
-    @include flex();
-    margin: auto;
-    padding-bottom: 56px;
-    justify-content: space-between;
-  }
 
-  &_logo {
-    @include flex();
-    font-size: 0px;
-  }
-
-  &_logo-icon {
-    display: block;
-  }
-
-  &_title {
-    display: none;
-    font-weight: 500;
-  }
-
-  &_nav {
-    @include flex();
-    width: fit-content;
-    flex-direction: row;
-    gap: 39px;
-  }
-  &_link {
-    font-family: $font-primary;
-    color: white;
-    &:hover {
-      border-bottom: solid 3px #ff001b;
-    }
-  }
   &_search-container {
     margin: auto;
     position: relative;
@@ -53,13 +19,15 @@
     display: contents;
   }
   &_input {
-    color: white;
+    color: $color-primary;
     background-color: transparent;
     border: none;
+    font-size: 14px;
     border-bottom: 0.5px solid white;
     width: 280px;
     &::placeholder {
-      color: white;
+      color: $color-primary;
+      font-size: 14px;
     }
     &:focus {
       outline: none;
@@ -76,12 +44,12 @@
     right: 0;
   }
   &_message {
-    color: #ff001b;
+    color: $color-warning;
     font-weight: 400;
     font-size: 14px;
     line-height: 16px;
     display: block;
-    width: 280px;
+    min-width: 280px;
     position: absolute;
     top: 154;
     left: 50%;
@@ -94,16 +62,6 @@
     background-image: url(/src/images/header-home-tablet-background@1x.jpg);
     @media screen and (min-resolution: 2dppx), (min-device-pixel-ratio: 2) {
       background-image: url(/src/images/header-home-tablet-background@2x.jpg);
-    }
-    &_title {
-      display: block;
-      font-size: 30px;
-    }
-    &_container {
-      max-width: 704px;
-    }
-    &_logo {
-      gap: 10px;
     }
     &_message {
       width: fit-content;
@@ -121,9 +79,7 @@
     @media screen and (min-resolution: 2dppx), (min-device-pixel-ratio: 2) {
       background-image: url(/src/images/header-home-desktop-background@2x.jpg);
     }
-    &_container {
-      max-width: 1214px;
-    }
+
     &_input {
       min-width: 394px;
     }
