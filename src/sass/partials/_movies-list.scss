@@ -73,12 +73,12 @@
     line-height: 16px;
   }
 }
-@media screen and (min-width: breakpointTablet) {
+@media screen and (min-width: $breakpointTablet) {
   .covers__container {
     gap: 32px;
   }
   .cover__container {
-    width: 336px !important; // nie dziala
+    width: 336px;
   }
 }
 @media screen and (min-width: $breakpointDesktop) {
