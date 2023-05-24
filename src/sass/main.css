@@ -61,6 +61,176 @@ a {
   }
 }
 
+.header {
+  padding-top: 40px;
+  padding-bottom: 92px;
+  width: 100%;
+  background-size: cover;
+  background-image: url(/src/images/header-home-mobile-background@1x.jpg);
+}
+@media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min-resolution: 2dppx), (min-device-pixel-ratio: 2) {
+  .header {
+    background-image: url(/src/images/header-home-mobile-background@2x.jpg);
+  }
+}
+.header_container {
+  max-width: 280px;
+  gap: 115px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: auto;
+  padding-bottom: 56px;
+  justify-content: space-between;
+}
+.header_logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 0px;
+}
+.header_logo-icon {
+  display: block;
+}
+.header_title {
+  display: none;
+  font-weight: 500;
+}
+.header_nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  flex-direction: row;
+  gap: 39px;
+}
+.header_link {
+  font-family: "Roboto", sans-serif;
+  color: white;
+}
+.header_link:hover {
+  border-bottom: solid 3px #ff001b;
+}
+.header_search-container {
+  margin: auto;
+  position: relative;
+  width: -webkit-fit-content;
+  width: -moz-fit-content;
+  width: fit-content;
+  flex-direction: column;
+}
+.header_search-form {
+  display: contents;
+}
+.header_input {
+  color: white;
+  background-color: transparent;
+  border: none;
+  border-bottom: 0.5px solid white;
+  width: 280px;
+}
+.header_input::-moz-placeholder {
+  color: white;
+}
+.header_input:-ms-input-placeholder {
+  color: white;
+}
+.header_input::placeholder {
+  color: white;
+}
+.header_input:focus {
+  outline: none;
+}
+.header_input:focus::-moz-placeholder {
+  color: transparent;
+}
+.header_input:focus:-ms-input-placeholder {
+  color: transparent;
+}
+.header_input:focus::placeholder {
+  color: transparent;
+}
+.header_search-btn {
+  background-color: transparent;
+  border: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+}
+.header_message {
+  color: #ff001b;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 16px;
+  display: block;
+  width: 280px;
+  position: absolute;
+  top: 154;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+@media screen and (min-width: 768px) {
+  .header {
+    background-image: url(/src/images/header-home-tablet-background@1x.jpg);
+  }
+}
+@media screen and (min-width: 768px) and (-webkit-min-device-pixel-ratio: 2), screen and (min-width: 768px) and (min-resolution: 2dppx), screen and (min-width: 768px) and (min-device-pixel-ratio: 2) {
+  .header {
+    background-image: url(/src/images/header-home-tablet-background@2x.jpg);
+  }
+}
+@media screen and (min-width: 768px) {
+  .header_title {
+    display: block;
+    font-size: 30px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .header_container {
+    max-width: 704px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .header_logo {
+    gap: 10px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .header_message {
+    width: -webkit-fit-content;
+    width: -moz-fit-content;
+    width: fit-content;
+    max-width: 708px;
+  }
+}
+@media screen and (min-width: 768px) {
+  .header_input {
+    min-width: 336px;
+  }
+}
+@media screen and (min-width: 1280px) {
+  .header {
+    background-image: url(/src/images/header-home-desktop-background@1x.jpg);
+  }
+}
+@media screen and (min-width: 1280px) and (-webkit-min-device-pixel-ratio: 2), screen and (min-width: 1280px) and (min-resolution: 2dppx), screen and (min-width: 1280px) and (min-device-pixel-ratio: 2) {
+  .header {
+    background-image: url(/src/images/header-home-desktop-background@2x.jpg);
+  }
+}
+@media screen and (min-width: 1280px) {
+  .header_container {
+    max-width: 1214px;
+  }
+}
+@media screen and (min-width: 1280px) {
+  .header_input {
+    min-width: 394px;
+  }
+}
 .covers-container {
   display: flex;
   justify-content: center;
@@ -171,5 +341,35 @@ a {
   }
   .cover__container {
     width: 274px;
+  }
+}
+.footer {
+  background-color: #f7f7f7;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #545454;
+}
+
+.container-footer {
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  align-items: center;
+}
+
+p {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.41px;
+  padding-inline: 2px;
+  padding-block: 5px;
+}
+
+@media screen and (min-width: 768px) {
+  .container-footer {
+    height: 79px;
   }
 }/*# sourceMappingURL=main.css.map */
