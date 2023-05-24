@@ -96,7 +96,9 @@
     transform: translate(-50%);
   }
 }
-
+.hidden {
+  display: none;
+}
 @media screen and (min-width: $breakpointTablet) {
   .header {
     background-image: url(/src/images/header-home-tablet-background@1x.jpg);

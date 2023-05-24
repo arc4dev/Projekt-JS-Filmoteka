@@ -9,6 +9,15 @@ const defaultMoviesURL = TRENDING_URL;
 const TVGenresURL = `${API_URL}genre/tv/list?api_key=${API_KEY}&language=${API_LANGUAGE}`;
 const movieGenresURL = `${API_URL}genre/movie/list?api_key=${API_KEY}&language=${API_LANGUAGE}`;
 
+const showMessage = () => {
+  const messageOutput = document.getElementById('message');
+  messageOutput.classList.remove('hidden');
+};
+const hideMessage = () => {
+  const messageOutput = document.getElementById('message');
+  messageOutput.classList.add('hidden');
+};
+
 const getGenres = async url => {
   const genresResponse = await axios.get(url);
   const genresArray = genresResponse.data.genres;
@@ -36,6 +45,12 @@ export const renderMoviesList = async (searchURL = defaultMoviesURL) => {
 };
 
 const listBuilder = moviesArray => {
+  if (moviesArray.length === 0) {
+    showMessage();
+  }
+  if (moviesArray.length !== 0) {
+    hideMessage();
+  }
   moviesArray.forEach(el => {
     // figure, cover container
     const movieCoverFigure = document.createElement('figure');
