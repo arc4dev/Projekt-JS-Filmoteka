@@ -8,7 +8,40 @@
   @media screen and (min-resolution: 2dppx), (min-device-pixel-ratio: 2) {
     background-image: url(/src/images/header-home-mobile-background@2x.jpg);
   }
+  &_container {
+    gap: 115px;
+    @include flex();
+    margin: auto;
+    padding-bottom: 56px;
+    justify-content: space-between;
+  }
 
+  &_logo {
+    @include flex();
+    font-size: 0px;
+  }
+
+  &_logo-icon {
+    display: block;
+  }
+
+  &_title {
+    display: none;
+    font-weight: 500;
+  }
+
+  &_nav {
+    @include flex();
+    width: fit-content;
+    flex-direction: row;
+    gap: 39px;
+  }
+  &_link {
+    color: white;
+    &:hover {
+      border-bottom: solid 3px $color-warning;
+    }
+  }
   &_search-container {
     margin: auto;
     position: relative;
@@ -23,8 +56,15 @@
     background-color: transparent;
     border: none;
     font-size: 14px;
+    font-size: 1.16rem;
+    background-color: transparent;
+    border: none;
+    padding-bottom: 7px;
     border-bottom: 0.5px solid white;
     width: 280px;
+    color: inherit;
+    transition: $transitionDefault;
+
     &::placeholder {
       color: $color-primary;
       font-size: 14px;
@@ -51,21 +91,29 @@
     display: block;
     min-width: 280px;
     position: absolute;
-    top: 154;
+    top: 160px;
     left: 50%;
     transform: translate(-50%);
   }
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: $breakpointTablet) {
   .header {
     background-image: url(/src/images/header-home-tablet-background@1x.jpg);
     @media screen and (min-resolution: 2dppx), (min-device-pixel-ratio: 2) {
       background-image: url(/src/images/header-home-tablet-background@2x.jpg);
     }
+    &_title {
+      display: block;
+      font-size: 30px;
+    }
+    &_logo {
+      gap: 10px;
+    }
     &_message {
       width: fit-content;
       max-width: 708px;
+      top: 170px;
     }
     &_input {
       min-width: 336px;
@@ -73,13 +121,12 @@
   }
 }
 
-@media screen and (min-width: 1280px) {
+@media screen and (min-width: $breakpointDesktop) {
   .header {
     background-image: url(/src/images/header-home-desktop-background@1x.jpg);
     @media screen and (min-resolution: 2dppx), (min-device-pixel-ratio: 2) {
       background-image: url(/src/images/header-home-desktop-background@2x.jpg);
     }
-
     &_input {
       min-width: 394px;
     }

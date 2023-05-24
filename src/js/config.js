@@ -5,6 +5,4 @@ export const API_IMG_URL = 'https://image.tmdb.org/t/p/w500';
 
 // URL's
 export const URL_SEARCH = `${API_URL}search/movie`;
-
-// API URL's
 export const TRENDING_URL = `${API_URL}trending/movie/week?api_key=${API_KEY}`;
