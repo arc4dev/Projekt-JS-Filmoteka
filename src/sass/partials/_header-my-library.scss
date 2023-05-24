@@ -1,0 +1,63 @@
+@import '_header-logo-nav-container';
+.header-my-library {
+  padding-top: 40px;
+  padding-bottom: 62px;
+  width: 100%;
+  background-size: cover;
+  background-image: url(/src/images/header-library-mobile-background@1x.jpg);
+  @media screen and (min-resolution: 2dppx), (min-device-pixel-ratio: 2) {
+    background-image: url(/src/images/header-library-mobile-background@2x.jpg);
+  }
+  &_buttons {
+    @include flex();
+    gap: 20px;
+  }
+  &_btn {
+    color: $color-primary;
+    background-color: transparent;
+    width: 129.5px;
+    height: 44px;
+    border: solid 1px $color-primary;
+    border-radius: 5px;
+    line-height: 16px;
+    font-weight: 500;
+    &:focus,
+    &:hover {
+      background-color: $color-brand;
+      box-shadow: 0px 8px 43px rgba(255, 107, 1, 0.6);
+      transition: $transitionDurationDefault;
+      transition-timing-function: $transitionTimingDefault;
+    }
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .header-my-library {
+    background-image: url(/src/images/header-library-tablet-background@1x.jpg);
+    @media screen and (min-resolution: 2dppx), (min-device-pixel-ratio: 2) {
+      background-image: url(/src/images/header-library-tablet-background@2x.jpg);
+    }
+    &_buttons {
+      gap: 32px;
+    }
+    &_btn {
+      width: 152px;
+    }
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .header-my-library {
+    background-image: url(/src/images/header-library-desktop-background@1x.jpg);
+    @media screen and (min-resolution: 2dppx), (min-device-pixel-ratio: 2) {
+      background-image: url(/src/images/header-library-desktop-background@2x.jpg);
+    }
+    &_buttons {
+      gap: 16px;
+    }
+    &_btn {
+      width: 147px;
+      height: 42px;
+    }
+  }
+}

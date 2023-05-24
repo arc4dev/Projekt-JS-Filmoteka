@@ -1,5 +1,6 @@
 html {
   scroll-behavior: smooth;
+  font-size: 12px;
 }
 
 body {
@@ -7,8 +8,16 @@ body {
   background-color: $color-background;
   font-family: $font-primary;
   font-weight: 500;
-  font-size: 12px;
   margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $font-primary;
 }
 
 * {
@@ -32,6 +41,11 @@ button:hover {
 
 a {
   text-decoration: none;
+  font-family: $font-primary;
+}
+
+output {
+  font-family: $font-primary;
 }
 
 // Reuzywalna i uniwersalna klasa container dodaje tylko najbardziej potrzebne paddingi
@@ -39,17 +53,18 @@ a {
   width: 100%;
   padding: 0 20px; // mobile first
   margin: 0 auto;
+  transition: $transitionDefault;
 
-  @media (min-width: 320px) {
+  @media screen and (min-width: 320px) {
     width: 320px;
   }
 
-  @media (min-width: 768px) {
+  @media screen and (min-width: 768px) {
     width: 768px;
     padding: 0 32px;
   }
 
-  @media (min-width: 1280px) {
+  @media screen and (min-width: 1280px) {
     width: 1280px;
   }
 }

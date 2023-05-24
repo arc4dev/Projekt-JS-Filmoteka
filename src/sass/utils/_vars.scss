@@ -16,5 +16,10 @@ $transitionDurationDefault: 250ms;
 $transitionTimingDefault: cubic-bezier(0.4, 0, 0.2, 1);
 $transitionDefault: all $transitionDurationDefault $transitionTimingDefault;
 
+// Breakpoints
+$breakpointMobile: 320px;
+$breakpointTablet: 768px;
+$breakpointDesktop: 1280px;
+
 // Other
 $border-radius: 5px; // dla buttonow, zdjec filmow, etc
