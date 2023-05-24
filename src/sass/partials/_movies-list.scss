@@ -1,34 +1,25 @@
 .covers-container {
-  display: flex;
-  justify-content: center;
-  align-items: center;
+  @extend .container;
+  @include flex();
   flex-wrap: wrap;
-  flex-basis: 400px;
-  padding: 60px 0px 60px 0px;
-  margin: 0 auto;
-  max-width: 912px;
+  padding: 60px 20px;
+  gap: 20px;
 }
+
 .cover__container {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  @include flex(flex, center, flex-start);
   flex-direction: column;
-  margin: 20px;
-  margin-bottom: 10px;
   margin-top: 0px;
   width: 280px;
-  max-height: 470px;
-  cursor: pointer;
   position: relative;
+  transition: $transitionDefault;
 
   &:hover {
     cursor: pointer;
-
     .cover__label {
       opacity: 1;
       margin: 0;
     }
-
     .cover__image {
       filter: brightness(60%);
     }
@@ -36,12 +27,15 @@
 }
 .cover__image {
   width: 100%;
-  max-height: 402px;
-  border-radius: 5px;
+  border-radius: $border-radius;
   contain: content;
-  transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: $transitionDefault;
+  transition: $transitionDefault;
+  &:hover {
+    box-shadow: 0px 1px 1px rgb(0 0 0 / 12%), 3px 3px 5px rgb(0 0 0 / 15%);
+    transform: scale(1.02);
+  }
 }
-
 .cover__label {
   position: absolute;
   top: 50%;
@@ -50,58 +44,56 @@
   z-index: 10;
   opacity: 0;
   transition: all 0.4s ease;
+  color: $color-primary;
+  transition: $transitionDefault;
   color: white;
 }
 
 .cover__image:hover {
   box-shadow: 0 1px 1px rgb(0 0 0 / 12%), 0 4px 4px rgb(0 0 0 / 6%), 1px 4px 6px rgb(0 0 0 / 16%);
-  transition: 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  transition: $transitionDefault;
   transform: scale(1.02);
 }
 .cover__figcaption {
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
+  @include flex(flex, center, flex-start);
   flex-direction: column;
   padding-top: 10px;
   &-title {
-    @media screen and (min-width: 1024px) {
+    color: #000;
+  }
+  @media screen and (min-width: $breakpointDesktop) {
+    line-height: 16px;
+  }
+  &-movie-data {
+    height: 33px;
+    color: #ff6b08;
+    @media screen and (min-width: $breakpointDesktop) {
       line-height: 16px;
     }
   }
 }
-.cover__figcaption-title {
-  color: black;
-}
-.cover__figcaption-movie-data {
-  height: 33px;
+.cover__figcaption-rating {
+  display: inline-block;
+  border-radius: 25%;
+  background-color: #ff6b08;
+  padding: 1px 4px;
+  color: white;
 }
 
-.cover__figcaption-movie-data {
-  color: #ff6b08;
-  @media screen and (min-width: 1024px) {
-    line-height: 16px;
-  }
-}
-@media screen and (min-width: 768px) {
-  .cover__image {
-    width: 100%;
-    max-height: 398px;
+@media screen and (min-width: $breakpointTablet) {
+  .covers__container {
+    gap: 32px;
   }
   .cover__container {
-    width: 293px;
-    margin: 0px 15px 10px 15px;
+    width: 336px;
   }
 }
-@media screen and (min-width: 1024px) {
-  .cover__image {
-    width: 100%;
-    max-height: 398px;
-  }
-  .covers-container {
-    justify-content: start;
+
+@media screen and (min-width: $breakpointDesktop) {
+  .covers__container {
+    gap: 16px;
   }
   .cover__container {
-    width: 274px;
+    width: 395px;
   }
 }

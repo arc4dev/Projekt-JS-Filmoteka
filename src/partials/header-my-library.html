@@ -1,8 +1,8 @@
-<header class="header-main">
+<header class="header-my-library">
   <div class="container">
     <div class="header-logo-nav-container">
       <div class="header-logo-nav-container_logo">
-        <a class="header-logo-nav-container_logo-icon" href="#">
+        <a class="header-logo-nav-container_logo-icon" href="index.html">
           <svg width="24px" height="24px">
             <use href="/src/icons/icons.svg#logo-icon"></use>
           </svg>
@@ -16,18 +16,9 @@
         </ul>
       </nav>
     </div>
-    <div class="header-main_search-container">
-      <form class="header-main_search-form" id="search-form">
-        <input class="header-main_input" type="text" placeholder="Movie search" />
-        <button class="header-main_search-btn" type="submit">
-          <svg width="12px" height="12px">
-            <use href="/src/icons/icons.svg#search-icon"></use>
-          </svg>
-        </button>
-      </form>
+    <div class="header-my-library_buttons">
+      <button class="header-my-library_btn" type="button" id="btn-watched">WATCHED</button>
+      <button class="header-my-library_btn" type="button" id="btn-queue">QUEUE</button>
     </div>
-    <output class="header-main_message" id="message">
-      Search result not successful. Enter the correct movie name.
-    </output>
   </div>
 </header>
