@@ -16,12 +16,10 @@
 
   &:hover {
     cursor: pointer;
-
     .cover__label {
       opacity: 1;
       margin: 0;
     }
-
     .cover__image {
       filter: brightness(60%);
     }
@@ -32,8 +30,12 @@
   border-radius: $border-radius;
   contain: content;
   transition: $transitionDefault;
+  transition: $transitionDefault;
+  &:hover {
+    box-shadow: 0px 1px 1px rgb(0 0 0 / 12%), 3px 3px 5px rgb(0 0 0 / 15%);
+    transform: scale(1.02);
+  }
 }
-
 .cover__label {
   position: absolute;
   top: 50%;
@@ -43,6 +45,8 @@
   opacity: 0;
   transition: all 0.4s ease;
   color: $color-primary;
+  transition: $transitionDefault;
+  color: white;
 }
 
 .cover__image:hover {
@@ -55,27 +59,31 @@
   flex-direction: column;
   padding-top: 10px;
   &-title {
-    @media screen and (min-width: $breakpointDesktop) {
+    color: #000;
+  }
+  @media screen and (min-width: 1024px) {
+    line-height: 16px;
+  }
+  &-movie-data {
+    height: 33px;
+    color: #ff6b08;
+    @media screen and (min-width: 1024px) {
       line-height: 16px;
     }
   }
 }
-.cover__figcaption-title {
-  color: black;
-}
-.cover__figcaption-movie-data {
-  height: 33px;
+.cover__figcaption-rating {
+  display: inline-block;
+  border-radius: 25%;
+  background-color: #ff6b08;
+  padding: 1px 4px;
+  color: white;
 }
 
-.cover__figcaption-movie-data {
-  color: #ff6b08;
-  @media screen and (min-width: $breakpointDesktop) {
-    line-height: 16px;
-  }
-}
-@media screen and (min-width: $breakpointTablet) {
-  .covers__container {
-    gap: 32px;
+@media screen and (min-width: 768px) {
+  .cover__image {
+    width: 100%;
+    max-height: 395px;
   }
   .cover__container {
     width: 336px;
@@ -84,6 +92,10 @@
 @media screen and (min-width: $breakpointDesktop) {
   .covers__container {
     gap: 16px;
+@media screen and (min-width: 1024px) {
+  .cover__image {
+    width: 100%;
+    max-height: 395px;
   }
 
   .cover__container {
