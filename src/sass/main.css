@@ -340,3 +340,35 @@ output {
     width: 395px;
   }
 } /*# sourceMappingURL=main.css.map */
+
+}
+.footer {
+  background-color: #f7f7f7;
+  height: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  color: #545454;
+}
+
+.container-footer {
+  justify-content: center;
+  display: flex;
+  flex-wrap: wrap;
+  text-align: center;
+  align-items: center;
+}
+
+p {
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 16.41px;
+  padding-inline: 2px;
+  padding-block: 5px;
+}
+
+@media screen and (min-width: 768px) {
+  .container-footer {
+    height: 79px;
+  }
+}/*# sourceMappingURL=main.css.map */
