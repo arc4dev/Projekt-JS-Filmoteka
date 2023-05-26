@@ -64,10 +64,9 @@ export const renderMoviesList = async (moviesArr) => {
     // Convert it to HTML STRING
     const moviesHTML = convertElementsToHTMLString(movies);
 
-    // Insert it in container
+    // Insert it into container
     moviesContainer.innerHTML = '';
     moviesContainer.insertAdjacentHTML('beforeend', moviesHTML);
-    // const response = await getMovies(searchURL);
   } catch (err) {
     throw err;
   }
@@ -147,13 +146,7 @@ const listBuilder = (moviesArray) => {
     movieCoverFigure.append(coverFigcaption);
     // moviesContainer.append(movieCoverFigure);
 
-    const movieIDInjection = document.querySelectorAll('[class^=cover_]');
-
-    for (const tag of movieIDInjection) {
-      if (tag.id === '') {
-        tag.setAttribute('id', el['id']);
-      }
-    }
+    movieCoverFigure.setAttribute('id', el['id']);
 
     return movieCoverFigure;
   });
