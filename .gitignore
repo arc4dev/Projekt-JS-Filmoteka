@@ -110,7 +110,3 @@ dist
 
 # Parcel
 .parcel-cache/
-
-
-main.css
-main.css.map
