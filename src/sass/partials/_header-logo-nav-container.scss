@@ -40,7 +40,7 @@
       left: 0;
       background-color: red;
       transform-origin: bottom center;
-      transition: transform 0.25s ease-out;
+      transition: $transitionDefault;
     }
     &:hover::after {
       transform: scaleX(1);

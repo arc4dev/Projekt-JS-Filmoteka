@@ -14,11 +14,11 @@ try {
 // Render movies on search
 if (searchForm) {
   try {
-    searchForm.addEventListener('submit', e => {
+    searchForm.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       const formInput = e.target.elements.searchInput;
-      searchMovie(formInput);
+      await searchMovie(formInput);
     });
   } catch (err) {
     console.error(err);
