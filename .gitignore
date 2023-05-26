@@ -110,3 +110,7 @@ dist
 
 # Parcel
 .parcel-cache/
+
+# Main.css conflicts
+src/main.css
+src/main.css.map
