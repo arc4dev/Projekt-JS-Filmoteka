@@ -18,12 +18,12 @@ const hideMessage = () => {
   messageOutput.classList.add('hidden');
 };
 
-const getGenres = async url => {
+const getGenres = async (url) => {
   try {
     const genresResponse = await axios.get(url);
     const genresArray = genresResponse.data.genres;
 
-    genresArray.map(genre => {
+    genresArray.map((genre) => {
       genresList[`${genre['id']}`] = genre.name;
     });
 
@@ -33,7 +33,18 @@ const getGenres = async url => {
   }
 };
 
-const getMovies = async url => {
+const convertElementsToHTMLString = (elements) => {
+  let htmlString = '';
+
+  // Iterate through each element in the array
+  elements.forEach((element) => {
+    htmlString += element.outerHTML;
+  });
+
+  return htmlString;
+};
+
+export const getMovies = async (url = defaultMoviesURL) => {
   try {
     const moviesResponse = await axios.get(url);
     const moviesArray = moviesResponse.data.results;
@@ -43,27 +54,32 @@ const getMovies = async url => {
   }
 };
 
-export const renderMoviesList = async (searchURL = defaultMoviesURL) => {
+export const renderMoviesList = async (moviesArr) => {
   try {
-    moviesContainer.innerHTML = '';
     await getGenres(movieGenresURL);
     await getGenres(TVGenresURL);
 
-    const response = await getMovies(searchURL);
-    listBuilder(response);
+    // Build movies elements
+    const movies = listBuilder(moviesArr);
+    // Convert it to HTML STRING
+    const moviesHTML = convertElementsToHTMLString(movies);
+
+    // Insert it into container
+    moviesContainer.innerHTML = '';
+    moviesContainer.insertAdjacentHTML('beforeend', moviesHTML);
   } catch (err) {
     throw err;
   }
 };
 
-const listBuilder = moviesArray => {
+const listBuilder = (moviesArray) => {
   if (moviesArray.length === 0) {
     showMessage();
   }
   if (moviesArray.length !== 0) {
     hideMessage();
   }
-  moviesArray.forEach(el => {
+  return moviesArray.map((el) => {
     // figure, cover container
     const movieCoverFigure = document.createElement('figure');
     movieCoverFigure.classList.add('cover__container');
@@ -76,7 +92,10 @@ const listBuilder = moviesArray => {
     //img
     const coverImg = document.createElement('img');
     coverImg.classList.add('cover__image');
-    coverImg.setAttribute('src', `https://image.tmdb.org/t/p/w500${el['poster_path']}`);
+    coverImg.setAttribute(
+      'src',
+      `https://image.tmdb.org/t/p/w500${el['poster_path']}`
+    );
     coverImg.setAttribute('alt', el['original_title']);
     coverImg.setAttribute('loading', 'lazy');
     const imgAtrribute = coverImg.getAttribute('src');
@@ -96,7 +115,10 @@ const listBuilder = moviesArray => {
       title = title.substring(0, 28) + '...';
     }
     movieTitle.innerHTML = title.toUpperCase();
-    movieTitle.setAttribute('title', el['name'] || el['original_name'] || el['original_title']); //tooltip
+    movieTitle.setAttribute(
+      'title',
+      el['name'] || el['original_name'] || el['original_title']
+    ); //tooltip
 
     const movieData = document.createElement('p');
     movieData.classList.add('cover__figcaption-movie-data');
@@ -108,10 +130,12 @@ const listBuilder = moviesArray => {
         movieGenresArray.push(genresList[`${id}`]);
       }
     }
-    const releaseDate = new Date(`${el['release_date'] || el['first_air_date']}`);
+    const releaseDate = new Date(
+      `${el['release_date'] || el['first_air_date']}`
+    );
     const voteAverage = el['vote_average'].toFixed(1);
     movieData.innerHTML = `${movieGenresArray.join(
-      ', ',
+      ', '
     )} | ${releaseDate.getFullYear()} | <span class = cover__figcaption-rating> ${voteAverage}</span>`;
 
     coverFigcaption.append(movieTitle);
@@ -120,14 +144,10 @@ const listBuilder = moviesArray => {
     movieCoverFigure.append(coverImg);
     movieCoverFigure.append(moreDetailsLabel);
     movieCoverFigure.append(coverFigcaption);
-    moviesContainer.append(movieCoverFigure);
+    // moviesContainer.append(movieCoverFigure);
 
-    const movieIDInjection = document.querySelectorAll('[class^=cover_]');
+    movieCoverFigure.setAttribute('id', el['id']);
 
-    for (const tag of movieIDInjection) {
-      if (tag.id === '') {
-        tag.setAttribute('id', el['id']);
-      }
-    }
+    return movieCoverFigure;
   });
 };
