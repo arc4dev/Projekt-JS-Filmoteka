@@ -18,12 +18,12 @@ const hideMessage = () => {
   messageOutput.classList.add('hidden');
 };
 
-const getGenres = async url => {
+const getGenres = async (url) => {
   try {
     const genresResponse = await axios.get(url);
     const genresArray = genresResponse.data.genres;
 
-    genresArray.map(genre => {
+    genresArray.map((genre) => {
       genresList[`${genre['id']}`] = genre.name;
     });
 
@@ -33,7 +33,7 @@ const getGenres = async url => {
   }
 };
 
-const getMovies = async url => {
+export const getMovies = async (url = defaultMoviesURL) => {
   try {
     const moviesResponse = await axios.get(url);
     const moviesArray = moviesResponse.data.results;
@@ -43,27 +43,27 @@ const getMovies = async url => {
   }
 };
 
-export const renderMoviesList = async (searchURL = defaultMoviesURL) => {
+export const renderMoviesList = async (moviesArr) => {
   try {
     moviesContainer.innerHTML = '';
     await getGenres(movieGenresURL);
     await getGenres(TVGenresURL);
 
-    const response = await getMovies(searchURL);
-    listBuilder(response);
+    // const response = await getMovies(searchURL);
+    listBuilder(moviesArr);
   } catch (err) {
     throw err;
   }
 };
 
-const listBuilder = moviesArray => {
+const listBuilder = (moviesArray) => {
   if (moviesArray.length === 0) {
     showMessage();
   }
   if (moviesArray.length !== 0) {
     hideMessage();
   }
-  moviesArray.forEach(el => {
+  moviesArray.forEach((el) => {
     // figure, cover container
     const movieCoverFigure = document.createElement('figure');
     movieCoverFigure.classList.add('cover__container');
@@ -76,7 +76,10 @@ const listBuilder = moviesArray => {
     //img
     const coverImg = document.createElement('img');
     coverImg.classList.add('cover__image');
-    coverImg.setAttribute('src', `https://image.tmdb.org/t/p/w500${el['poster_path']}`);
+    coverImg.setAttribute(
+      'src',
+      `https://image.tmdb.org/t/p/w500${el['poster_path']}`
+    );
     coverImg.setAttribute('alt', el['original_title']);
     coverImg.setAttribute('loading', 'lazy');
     const imgAtrribute = coverImg.getAttribute('src');
@@ -96,7 +99,10 @@ const listBuilder = moviesArray => {
       title = title.substring(0, 28) + '...';
     }
     movieTitle.innerHTML = title.toUpperCase();
-    movieTitle.setAttribute('title', el['name'] || el['original_name'] || el['original_title']); //tooltip
+    movieTitle.setAttribute(
+      'title',
+      el['name'] || el['original_name'] || el['original_title']
+    ); //tooltip
 
     const movieData = document.createElement('p');
     movieData.classList.add('cover__figcaption-movie-data');
@@ -108,10 +114,12 @@ const listBuilder = moviesArray => {
         movieGenresArray.push(genresList[`${id}`]);
       }
     }
-    const releaseDate = new Date(`${el['release_date'] || el['first_air_date']}`);
+    const releaseDate = new Date(
+      `${el['release_date'] || el['first_air_date']}`
+    );
     const voteAverage = el['vote_average'].toFixed(1);
     movieData.innerHTML = `${movieGenresArray.join(
-      ', ',
+      ', '
     )} | ${releaseDate.getFullYear()} | <span class = cover__figcaption-rating> ${voteAverage}</span>`;
 
     coverFigcaption.append(movieTitle);
