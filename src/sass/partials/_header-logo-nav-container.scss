@@ -22,15 +22,29 @@
     flex-direction: row;
     gap: 39px;
   }
+
   &_link {
     font-family: $font-primary;
     color: $color-primary;
     line-height: 14px;
-    &:hover,
-    &:focus {
-      border-bottom: solid 3px $color-warning;
-      transition: $transitionDurationDefault;
-      transition-timing-function: $transitionTimingDefault;
+    display: inline-block;
+    position: relative;
+
+    &::after {
+      content: '';
+      position: absolute;
+      width: 100%;
+      transform: scaleX(0);
+      height: 3px;
+      bottom: -3px;
+      left: 0;
+      background-color: red;
+      transform-origin: bottom center;
+      transition: transform 0.25s ease-out;
+    }
+    &:hover::after {
+      transform: scaleX(1);
+      transform-origin: bottom center;
     }
   }
 }

@@ -98,7 +98,7 @@
 }
 
 @media screen and (min-width: $breakpointTablet) {
-  .header {
+  .header-main {
     background-image: url(/src/images/header-home-tablet-background@1x.jpg);
     @media screen and (min-resolution: 2dppx), (min-device-pixel-ratio: 2) {
       background-image: url(/src/images/header-home-tablet-background@2x.jpg);
@@ -122,7 +122,7 @@
 }
 
 @media screen and (min-width: $breakpointDesktop) {
-  .header {
+  .header-main {
     background-image: url(/src/images/header-home-desktop-background@1x.jpg);
     @media screen and (min-resolution: 2dppx), (min-device-pixel-ratio: 2) {
       background-image: url(/src/images/header-home-desktop-background@2x.jpg);
