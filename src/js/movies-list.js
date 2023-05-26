@@ -64,7 +64,12 @@ const listBuilder = moviesArray => {
     const movieTitle = document.createElement('h3');
     movieTitle.classList.add('cover__figcaption-title');
 
-    movieTitle.innerHTML = el['name'] || el['original_name'] || el['original_title'];
+    let title = el['name'] || el['original_name'] || el['original_title'];
+    if (title.length > 28) {
+      title = title.substring(0, 28) + '...';
+    }
+    movieTitle.innerHTML = title.toUpperCase();
+    movieTitle.setAttribute('title', el['name'] || el['original_name'] || el['original_title']); //tooltip
 
     const movieData = document.createElement('p');
     movieData.classList.add('cover__figcaption-movie-data');
@@ -80,7 +85,7 @@ const listBuilder = moviesArray => {
     const voteAverage = el['vote_average'].toFixed(1);
     movieData.innerHTML = `${movieGenresArray.join(
       ', ',
-    )} | ${releaseDate.getFullYear()} | Rating: ${voteAverage}`;
+    )} | ${releaseDate.getFullYear()} | <span class = cover__figcaption-rating> ${voteAverage}</span>`;
 
     coverFigcaption.append(movieTitle);
     coverFigcaption.append(movieData);

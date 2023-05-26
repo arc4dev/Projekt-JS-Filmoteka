@@ -1,4 +1,5 @@
-.header {
+@import '_header-logo-nav-container';
+.header-main {
   padding-top: 40px;
   padding-bottom: 92px;
   width: 100%;
@@ -8,7 +9,6 @@
     background-image: url(/src/images/header-home-mobile-background@2x.jpg);
   }
   &_container {
-    max-width: 280px;
     gap: 115px;
     @include flex();
     margin: auto;
@@ -37,10 +37,9 @@
     gap: 39px;
   }
   &_link {
-    font-family: $font-primary;
     color: white;
     &:hover {
-      border-bottom: solid 3px #ff001b;
+      border-bottom: solid 3px $color-warning;
     }
   }
   &_search-container {
@@ -53,13 +52,22 @@
     display: contents;
   }
   &_input {
-    color: white;
+    color: $color-primary;
     background-color: transparent;
     border: none;
+    font-size: 14px;
+    font-size: 1.16rem;
+    background-color: transparent;
+    border: none;
+    padding-bottom: 7px;
     border-bottom: 0.5px solid white;
     width: 280px;
+    color: inherit;
+    transition: $transitionDefault;
+
     &::placeholder {
-      color: white;
+      color: $color-primary;
+      font-size: 14px;
     }
     &:focus {
       outline: none;
@@ -76,21 +84,21 @@
     right: 0;
   }
   &_message {
-    color: #ff001b;
+    color: $color-warning;
     font-weight: 400;
     font-size: 14px;
     line-height: 16px;
     display: block;
-    width: 280px;
+    min-width: 280px;
     position: absolute;
-    top: 154;
+    top: 160px;
     left: 50%;
     transform: translate(-50%);
   }
 }
 
-@media screen and (min-width: 768px) {
-  .header {
+@media screen and (min-width: $breakpointTablet) {
+  .header-main {
     background-image: url(/src/images/header-home-tablet-background@1x.jpg);
     @media screen and (min-resolution: 2dppx), (min-device-pixel-ratio: 2) {
       background-image: url(/src/images/header-home-tablet-background@2x.jpg);
@@ -99,15 +107,13 @@
       display: block;
       font-size: 30px;
     }
-    &_container {
-      max-width: 704px;
-    }
     &_logo {
       gap: 10px;
     }
     &_message {
       width: fit-content;
       max-width: 708px;
+      top: 170px;
     }
     &_input {
       min-width: 336px;
@@ -115,14 +121,11 @@
   }
 }
 
-@media screen and (min-width: 1280px) {
-  .header {
+@media screen and (min-width: $breakpointDesktop) {
+  .header-main {
     background-image: url(/src/images/header-home-desktop-background@1x.jpg);
     @media screen and (min-resolution: 2dppx), (min-device-pixel-ratio: 2) {
       background-image: url(/src/images/header-home-desktop-background@2x.jpg);
-    }
-    &_container {
-      max-width: 1214px;
     }
     &_input {
       min-width: 394px;
