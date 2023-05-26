@@ -21,6 +21,6 @@ if (searchForm) {
       searchMovie(formInput);
     });
   } catch (err) {
-    console.log(err);
+    console.error(err);
   }
 }

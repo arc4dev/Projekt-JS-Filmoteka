@@ -19,20 +19,28 @@ const hideMessage = () => {
 };
 
 const getGenres = async url => {
-  const genresResponse = await axios.get(url);
-  const genresArray = genresResponse.data.genres;
+  try {
+    const genresResponse = await axios.get(url);
+    const genresArray = genresResponse.data.genres;
 
-  genresArray.map(genre => {
-    genresList[`${genre['id']}`] = genre.name;
-  });
+    genresArray.map(genre => {
+      genresList[`${genre['id']}`] = genre.name;
+    });
 
-  return genresList;
+    return genresList;
+  } catch (err) {
+    throw err;
+  }
 };
 
 const getMovies = async url => {
-  const moviesResponse = await axios.get(url);
-  const moviesArray = moviesResponse.data.results;
-  return moviesArray;
+  try {
+    const moviesResponse = await axios.get(url);
+    const moviesArray = moviesResponse.data.results;
+    return moviesArray;
+  } catch (err) {
+    throw err;
+  }
 };
 
 export const renderMoviesList = async (searchURL = defaultMoviesURL) => {
@@ -40,9 +48,9 @@ export const renderMoviesList = async (searchURL = defaultMoviesURL) => {
     moviesContainer.innerHTML = '';
     await getGenres(movieGenresURL);
     await getGenres(TVGenresURL);
-    getMovies(searchURL).then(response => {
-      listBuilder(response);
-    });
+
+    const response = await getMovies(searchURL);
+    listBuilder(response);
   } catch (err) {
     throw err;
   }
@@ -73,7 +81,7 @@ const listBuilder = moviesArray => {
     coverImg.setAttribute('loading', 'lazy');
     const imgAtrribute = coverImg.getAttribute('src');
     if (imgAtrribute === 'https://image.tmdb.org/t/p/w500null') {
-      coverImg.setAttribute('src', `${noImage}`);
+      coverImg.setAttribute('src', `noImage`);
       coverImg.setAttribute('alt', `no poster found`);
     }
     //title, genre
