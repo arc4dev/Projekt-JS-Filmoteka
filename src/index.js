@@ -13,6 +13,7 @@ const state = {
   page: 1,
 };
 
+// FUNCTIONS
 const renderTrendingMovies = async () => {
   try {
     // 1. Render loading spinner

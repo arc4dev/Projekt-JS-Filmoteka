@@ -33,6 +33,17 @@ const getGenres = async (url) => {
   }
 };
 
+const convertElementsToHTMLString = (elements) => {
+  let htmlString = '';
+
+  // Iterate through each element in the array
+  elements.forEach((element) => {
+    htmlString += element.outerHTML;
+  });
+
+  return htmlString;
+};
+
 export const getMovies = async (url = defaultMoviesURL) => {
   try {
     const moviesResponse = await axios.get(url);
@@ -45,12 +56,18 @@ export const getMovies = async (url = defaultMoviesURL) => {
 
 export const renderMoviesList = async (moviesArr) => {
   try {
-    moviesContainer.innerHTML = '';
     await getGenres(movieGenresURL);
     await getGenres(TVGenresURL);
 
+    // Build movies elements
+    const movies = listBuilder(moviesArr);
+    // Convert it to HTML STRING
+    const moviesHTML = convertElementsToHTMLString(movies);
+
+    // Insert it in container
+    moviesContainer.innerHTML = '';
+    moviesContainer.insertAdjacentHTML('beforeend', moviesHTML);
     // const response = await getMovies(searchURL);
-    listBuilder(moviesArr);
   } catch (err) {
     throw err;
   }
@@ -63,7 +80,7 @@ const listBuilder = (moviesArray) => {
   if (moviesArray.length !== 0) {
     hideMessage();
   }
-  moviesArray.forEach((el) => {
+  return moviesArray.map((el) => {
     // figure, cover container
     const movieCoverFigure = document.createElement('figure');
     movieCoverFigure.classList.add('cover__container');
@@ -128,7 +145,7 @@ const listBuilder = (moviesArray) => {
     movieCoverFigure.append(coverImg);
     movieCoverFigure.append(moreDetailsLabel);
     movieCoverFigure.append(coverFigcaption);
-    moviesContainer.append(movieCoverFigure);
+    // moviesContainer.append(movieCoverFigure);
 
     const movieIDInjection = document.querySelectorAll('[class^=cover_]');
 
@@ -137,5 +154,7 @@ const listBuilder = (moviesArray) => {
         tag.setAttribute('id', el['id']);
       }
     }
+
+    return movieCoverFigure;
   });
 };
