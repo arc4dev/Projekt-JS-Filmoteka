@@ -1,5 +1,6 @@
 import { getMovies } from './movies-list';
 import { API_KEY, URL_SEARCH, API_LANGUAGE } from './config';
+import { Notify } from 'notiflix';
 
 export async function searchMovie(searchInput) {
   try {
@@ -11,6 +12,7 @@ export async function searchMovie(searchInput) {
       let movies = await getMovies(searchURL);
 
       if (movies.length === 0) {
+        Notify.failure('Nie ma filmow o takiej nazwie! Spróbuj ponownie...');
         movies = await getMovies();
       }
 
