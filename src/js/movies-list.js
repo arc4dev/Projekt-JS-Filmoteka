@@ -9,33 +9,60 @@ const defaultMoviesURL = TRENDING_URL;
 const TVGenresURL = `${API_URL}genre/tv/list?api_key=${API_KEY}&language=${API_LANGUAGE}`;
 const movieGenresURL = `${API_URL}genre/movie/list?api_key=${API_KEY}&language=${API_LANGUAGE}`;
 
+const showMessage = () => {
+  const messageOutput = document.getElementById('message');
+  messageOutput.classList.remove('hidden');
+};
+const hideMessage = () => {
+  const messageOutput = document.getElementById('message');
+  messageOutput.classList.add('hidden');
+};
+
 const getGenres = async url => {
-  const genresResponse = await axios.get(url);
-  const genresArray = genresResponse.data.genres;
+  try {
+    const genresResponse = await axios.get(url);
+    const genresArray = genresResponse.data.genres;
 
-  genresArray.map(genre => {
-    genresList[`${genre['id']}`] = genre.name;
-  });
+    genresArray.map(genre => {
+      genresList[`${genre['id']}`] = genre.name;
+    });
 
-  return genresList;
+    return genresList;
+  } catch (err) {
+    throw err;
+  }
 };
 
 const getMovies = async url => {
-  const moviesResponse = await axios.get(url);
-  const moviesArray = moviesResponse.data.results;
-  return moviesArray;
+  try {
+    const moviesResponse = await axios.get(url);
+    const moviesArray = moviesResponse.data.results;
+    return moviesArray;
+  } catch (err) {
+    throw err;
+  }
 };
 
 export const renderMoviesList = async (searchURL = defaultMoviesURL) => {
-  moviesContainer.innerHTML = '';
-  await getGenres(movieGenresURL);
-  await getGenres(TVGenresURL);
-  getMovies(searchURL).then(response => {
+  try {
+    moviesContainer.innerHTML = '';
+    await getGenres(movieGenresURL);
+    await getGenres(TVGenresURL);
+
+    const response = await getMovies(searchURL);
     listBuilder(response);
-  });
+  } catch (err) {
+    throw err;
+  }
 };
 
 const listBuilder = moviesArray => {
+  if (moviesArray.length === 0) {
+    showMessage();
+  }
+  if (moviesArray.length !== 0) {
+    hideMessage();
+  }
   moviesArray.forEach(el => {
     // figure, cover container
     const movieCoverFigure = document.createElement('figure');
@@ -54,7 +81,7 @@ const listBuilder = moviesArray => {
     coverImg.setAttribute('loading', 'lazy');
     const imgAtrribute = coverImg.getAttribute('src');
     if (imgAtrribute === 'https://image.tmdb.org/t/p/w500null') {
-      coverImg.setAttribute('src', `${noImage}`);
+      coverImg.setAttribute('src', `noImage`);
       coverImg.setAttribute('alt', `no poster found`);
     }
     //title, genre
