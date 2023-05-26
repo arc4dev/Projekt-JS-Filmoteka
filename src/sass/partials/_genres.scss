@@ -1,0 +1,35 @@
+.genres {
+    color: #545454;
+    font-style: italic;
+    font-weight: 300;
+    margin-inline: 5px;
+    line-height: 1.5;
+    &:hover {
+        cursor: pointer;
+        text-decoration: overline;
+        color: #ff6b08;
+
+    }
+    &:active {
+        text-decoration: overline;
+        color: #ff6b08;
+    }
+}
+.container-genres {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-evenly;
+    padding-top: 15px;
+}
+.hidden-mobile {
+    display: none;
+    @media screen and (min-width: 1280px) {
+  display: flex;
+  }
+    &_tablet{
+        display: none;
+  @media screen and (min-width: 768px) {
+  display: flex;
+  }
+    }
+}
