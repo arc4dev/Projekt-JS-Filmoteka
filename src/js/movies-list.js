@@ -36,12 +36,16 @@ const getMovies = async url => {
 };
 
 export const renderMoviesList = async (searchURL = defaultMoviesURL) => {
-  moviesContainer.innerHTML = '';
-  await getGenres(movieGenresURL);
-  await getGenres(TVGenresURL);
-  getMovies(searchURL).then(response => {
-    listBuilder(response);
-  });
+  try {
+    moviesContainer.innerHTML = '';
+    await getGenres(movieGenresURL);
+    await getGenres(TVGenresURL);
+    getMovies(searchURL).then(response => {
+      listBuilder(response);
+    });
+  } catch (err) {
+    throw err;
+  }
 };
 
 const listBuilder = moviesArray => {
