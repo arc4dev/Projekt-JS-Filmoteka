@@ -112,5 +112,5 @@ dist
 .parcel-cache/
 
 # Main.css conflicts
-src/main.css
-src/main.css.map
+src/sass/main.css
+src/sass/main.css.map
