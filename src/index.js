@@ -2,6 +2,7 @@ import './sass/main.scss';
 import { getMovies, renderMoviesList } from './js/movies-list';
 import { searchMovie } from './js/searchMovie';
 import { renderLoadingSpinner } from './js/loadingSpinner';
+import { openModal, closeModal } from './js/details';
 
 // VARIABLES
 const searchForm = document.getElementById('search-form');
