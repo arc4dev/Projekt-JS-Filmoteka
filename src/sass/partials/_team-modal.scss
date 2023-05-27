@@ -101,7 +101,7 @@
   transition: transform 250ms;
   transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
   display: flex;
-  z-index: 1;
+  z-index: 2;
 }
 .is-hidden {
   display: none;
@@ -113,6 +113,9 @@
   width: 80%;
   background-color: #f7f7f7;
   border-radius: 3px;
+  max-height: calc(100vh - 110px);
+  overflow-y: auto;
+
   @media screen and (min-width: 768px) {
     height: 85%;
     width: 80%;
