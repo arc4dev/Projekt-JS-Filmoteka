@@ -20,9 +20,10 @@ p {
     padding-inline: 2px;
     padding-block: 5px;
 }
-// .students {
-//     text-decoration: underline;
-// }
+.students {
+    text-decoration: underline;
+    cursor: pointer;
+}
 @media screen and (min-width: 768px) {
     .container-footer {
         height: 79px;

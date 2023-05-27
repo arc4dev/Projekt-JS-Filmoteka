@@ -368,8 +368,80 @@ p {
   padding-block: 5px;
 }
 
+.students {
+  text-decoration: underline;
+  cursor: pointer;
+}
+
 @media screen and (min-width: 768px) {
   .container-footer {
     height: 79px;
   }
+}
+.team {
+  display: flex;
+  justify-content: center;
+  color: #545454;
+  padding-bottom: 20px;
+}
+.team_header {
+  padding-bottom: 20px;
+}
+.team_list {
+  gap: 30px;
+  margin: auto;
+  flex-flow: wrap;
+}
+.team_names {
+  padding-top: 24px;
+}
+
+.box__image {
+  box-sizing: border-box;
+  justify-content: center;
+  text-align: center;
+  margin: 0;
+  gap: 30px;
+  background-color: var(--active-text-color);
+  justify-content: center;
+  text-align: center;
+  margin: 0.4px;
+  box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.12), 0px 1px 1px rgba(0, 0, 0, 0.14), 0px 2px 1px rgba(0, 0, 0, 0.2);
+  border-radius: 0px 0px 4px 4px;
+  border: 1px solid #eeeeee;
+  transition-property: box-shadow;
+  transition-duration: 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  margin: 0;
+  padding-bottom: 24px;
+}
+
+.overlay {
+  width: 370px;
+  height: 294px;
+  position: relative;
+  overflow: hidden;
+}
+
+.img-content {
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.56;
+  padding-left: 24px;
+  padding-right: 45px;
+  text-align: left;
+  padding-block: 49px;
+  position: absolute;
+  width: 370px;
+  height: 294px;
+  background: #545454;
+  top: 100%;
+  transition: top 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.box__image:hover .img-content {
+  top: 0;
+  cursor: pointer;
 }/*# sourceMappingURL=main.css.map */
