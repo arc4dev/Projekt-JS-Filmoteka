@@ -1,43 +1,41 @@
 .team {
-    display: flex;
-    justify-content: center;
-    color: #545454;
-    padding-bottom: 20px;
-    &_header {
-      color: #ff6b08;
-      font-size: 18px;
-       @media screen and (min-width: 768px) {
-       padding-bottom: 20px;
-       padding-top: 5px;
-       font-size: 20px;
-    }}
-    &_list {
-      gap: 30px;
-      margin: auto;
-      flex-flow: wrap;
-      padding-inline: 20px;
-      justify-content: space-evenly;
-      @media screen and (min-width: 768px) {
-      // padding-inline: 50px;
-    }
-      @media screen and (min-width: 1200px) {
-      padding-inline: 80px;
-    }}
-    &_names {
-        padding-block: 15px;
-    }
+  display: flex;
+  justify-content: center;
+  color: #545454;
+
+  &_header {
+    color: #ff6b08;
+    font-size: 2.5rem;
+    letter-spacing: 0.04em;
+    padding-bottom: 1.5em;
+  }
+  &_list {
+    gap: 30px;
+    padding: 0 30px;
+    flex-wrap: wrap;
+  }
+  &_names {
+    padding-block: 15px;
+  }
 }
 
 .modal-btn--container {
-    display: flex;
-    justify-content: flex-end;
+  align-self: flex-end;
 }
 
 .modal-btn {
- border: none;
- background-color: transparent;
- padding-top: 10px;
- padding-right: 10px;
+  border: none;
+  background-color: transparent;
+  padding-top: 15px;
+  padding-right: 15px;
+}
+
+.modal-btn-icon {
+  transition: $transitionDefault;
+
+  &:hover {
+    transform: rotate(180deg);
+  }
 }
 
 .picture {
@@ -66,25 +64,25 @@
   cursor: pointer;
 }
 .overlay {
-    position: relative;
-    overflow: hidden;
+  position: relative;
+  overflow: hidden;
 }
 .img-content {
-    color: #ffffff;
-    font-size: 18px;
-    font-weight: 400;
-    line-height: 1.56;
-    padding-left: 24px;
-    padding-right: 45px;
-    text-align: left;
-    padding-block: 49px;
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: #ff6b08;
-    top: 100%;
-    transition: top 250ms;
-    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  color: #ffffff;
+  font-size: 18px;
+  font-weight: 400;
+  line-height: 1.56;
+  padding-left: 24px;
+  padding-right: 45px;
+  text-align: left;
+  padding-block: 49px;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #ff6b08;
+  top: 100%;
+  transition: top 250ms;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
 }
 .box__image:hover .img-content {
   top: 0;
@@ -98,8 +96,7 @@
   width: 100vw;
   height: 100vh;
   background-color: rgba(0, 0, 0, 0.4);
-  transition: transform 250ms;
-  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  transition: $transitionDefault;
   display: flex;
   z-index: 2;
 }
@@ -107,21 +104,17 @@
   display: none;
 }
 .modal-content {
-  justify-content: center;
-  margin:  auto;
+  @include flex();
+  justify-content: flex-start;
+  flex-direction: column;
+  gap: 2em;
+  margin: auto;
   height: 90%;
   width: 80%;
+  max-width: $breakpointDesktop;
   background-color: #f7f7f7;
   border-radius: 3px;
   max-height: calc(100vh - 110px);
   overflow-y: auto;
-
-  @media screen and (min-width: 768px) {
-    height: 85%;
-    width: 80%;
-  }
-    @media screen and (min-width: 1200px) {
-    height: 85%;
-    width: 88%;
-  }
+  transition: $transitionDefault;
 }
