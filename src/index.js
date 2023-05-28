@@ -12,7 +12,7 @@ const moviesContainer = document.querySelector('.covers-container');
 export const state = {
   movies: [],
   page: 1,
-  perPage: 20,
+  perPage: 10,
 };
 
 // FUNCTIONS

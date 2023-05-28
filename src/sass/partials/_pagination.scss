@@ -2,6 +2,7 @@
   margin-top: 20px;
   display: flex;
   justify-content: center;
+  margin-bottom: 20px;
 }
 
 .pagination-button {
@@ -12,13 +13,16 @@
   color: black;
   border: none;
   cursor: pointer;
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  display: flex;
+  align-items: center;
 }
 
-.pagination-button:hover {
-  background-color: #ddd;
-}
-
-.pagination-button.active {
+.pagination-button:hover,
+.pagination-button:active {
   background-color: #ff6b08;
+  color: white;
   border-radius: 5px;
 }
