@@ -1,4 +1,5 @@
 import './sass/main.scss';
+import './js/team-list';
 import { getMovies, renderMoviesList } from './js/movies-list';
 import { searchMovie } from './js/searchMovie';
 import { renderLoadingSpinner } from './js/loadingSpinner';
