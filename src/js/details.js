@@ -5,8 +5,6 @@ import { API_IMG_URL } from './config';
 
 // Elements
 const modal = document.getElementById('details-modal');
-const closeBtn = document.getElementById('close-modal');
-const moviesContainer = document.querySelector('.covers-container');
 const movieTitleEl = document.getElementById('movieTitle');
 const movieVoteEl = document.getElementById('movieVote');
 const moviePopularityEl = document.getElementById('moviePopularity');
@@ -68,24 +66,4 @@ const closeModal = () => {
   modal.style.display = 'none';
 };
 
-// Add listeners
-moviesContainer.addEventListener('click', openModal);
-
-// Close modal on close
-closeBtn.addEventListener('click', closeModal);
-
-// Close modal on Escape key press
-window.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape') {
-    closeModal();
-  }
-});
-
-// Close modal when clicked outside of modal content
-modal.addEventListener('click', (event) => {
-  if (event.target === modal) {
-    closeModal();
-  }
-});
-
-export { openModal, closeModal };
+export { modal, openModal, closeModal };
