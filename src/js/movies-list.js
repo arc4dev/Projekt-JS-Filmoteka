@@ -9,34 +9,77 @@ const defaultMoviesURL = TRENDING_URL;
 const TVGenresURL = `${API_URL}genre/tv/list?api_key=${API_KEY}&language=${API_LANGUAGE}`;
 const movieGenresURL = `${API_URL}genre/movie/list?api_key=${API_KEY}&language=${API_LANGUAGE}`;
 
-const getGenres = async url => {
-  const genresResponse = await axios.get(url);
-  const genresArray = genresResponse.data.genres;
+const showMessage = () => {
+  const messageOutput = document.getElementById('message');
+  messageOutput.classList.remove('hidden');
+};
+const hideMessage = () => {
+  const messageOutput = document.getElementById('message');
+  messageOutput.classList.add('hidden');
+};
 
-  genresArray.map(genre => {
-    genresList[`${genre['id']}`] = genre.name;
+const getGenres = async (url) => {
+  try {
+    const genresResponse = await axios.get(url);
+    const genresArray = genresResponse.data.genres;
+
+    genresArray.map((genre) => {
+      genresList[`${genre['id']}`] = genre.name;
+    });
+
+    return genresList;
+  } catch (err) {
+    throw err;
+  }
+};
+
+const convertElementsToHTMLString = (elements) => {
+  let htmlString = '';
+
+  // Iterate through each element in the array
+  elements.forEach((element) => {
+    htmlString += element.outerHTML;
   });
 
-  return genresList;
+  return htmlString;
 };
 
-const getMovies = async url => {
-  const moviesResponse = await axios.get(url);
-  const moviesArray = moviesResponse.data.results;
-  return moviesArray;
+export const getMovies = async (url = defaultMoviesURL) => {
+  try {
+    const moviesResponse = await axios.get(url);
+    const moviesArray = moviesResponse.data.results;
+    return moviesArray;
+  } catch (err) {
+    throw err;
+  }
 };
 
-export const renderMoviesList = async (searchURL = defaultMoviesURL) => {
-  moviesContainer.innerHTML = '';
-  await getGenres(movieGenresURL);
-  await getGenres(TVGenresURL);
-  getMovies(searchURL).then(response => {
-    listBuilder(response);
-  });
+export const renderMoviesList = async (moviesArr) => {
+  try {
+    await getGenres(movieGenresURL);
+    await getGenres(TVGenresURL);
+
+    // Build movies elements
+    const movies = listBuilder(moviesArr);
+    // Convert it to HTML STRING
+    const moviesHTML = convertElementsToHTMLString(movies);
+
+    // Insert it into container
+    moviesContainer.innerHTML = '';
+    moviesContainer.insertAdjacentHTML('beforeend', moviesHTML);
+  } catch (err) {
+    throw err;
+  }
 };
 
-const listBuilder = moviesArray => {
-  moviesArray.forEach(el => {
+const listBuilder = (moviesArray) => {
+  if (moviesArray.length === 0) {
+    showMessage();
+  }
+  if (moviesArray.length !== 0) {
+    hideMessage();
+  }
+  return moviesArray.map((el) => {
     // figure, cover container
     const movieCoverFigure = document.createElement('figure');
     movieCoverFigure.classList.add('cover__container');
@@ -49,12 +92,15 @@ const listBuilder = moviesArray => {
     //img
     const coverImg = document.createElement('img');
     coverImg.classList.add('cover__image');
-    coverImg.setAttribute('src', `https://image.tmdb.org/t/p/w500${el['poster_path']}`);
+    coverImg.setAttribute(
+      'src',
+      `https://image.tmdb.org/t/p/w500${el['poster_path']}`
+    );
     coverImg.setAttribute('alt', el['original_title']);
     coverImg.setAttribute('loading', 'lazy');
     const imgAtrribute = coverImg.getAttribute('src');
     if (imgAtrribute === 'https://image.tmdb.org/t/p/w500null') {
-      coverImg.setAttribute('src', `${noImage}`);
+      coverImg.setAttribute('src', `noImage`);
       coverImg.setAttribute('alt', `no poster found`);
     }
     //title, genre
@@ -69,7 +115,10 @@ const listBuilder = moviesArray => {
       title = title.substring(0, 28) + '...';
     }
     movieTitle.innerHTML = title.toUpperCase();
-    movieTitle.setAttribute('title', el['name'] || el['original_name'] || el['original_title']); //tooltip
+    movieTitle.setAttribute(
+      'title',
+      el['name'] || el['original_name'] || el['original_title']
+    ); //tooltip
 
     const movieData = document.createElement('p');
     movieData.classList.add('cover__figcaption-movie-data');
@@ -81,10 +130,12 @@ const listBuilder = moviesArray => {
         movieGenresArray.push(genresList[`${id}`]);
       }
     }
-    const releaseDate = new Date(`${el['release_date'] || el['first_air_date']}`);
+    const releaseDate = new Date(
+      `${el['release_date'] || el['first_air_date']}`
+    );
     const voteAverage = el['vote_average'].toFixed(1);
     movieData.innerHTML = `${movieGenresArray.join(
-      ', ',
+      ', '
     )} | ${releaseDate.getFullYear()} | <span class = cover__figcaption-rating> ${voteAverage}</span>`;
 
     coverFigcaption.append(movieTitle);
@@ -93,14 +144,10 @@ const listBuilder = moviesArray => {
     movieCoverFigure.append(coverImg);
     movieCoverFigure.append(moreDetailsLabel);
     movieCoverFigure.append(coverFigcaption);
-    moviesContainer.append(movieCoverFigure);
+    // moviesContainer.append(movieCoverFigure);
 
-    const movieIDInjection = document.querySelectorAll('[class^=cover_]');
+    movieCoverFigure.setAttribute('id', el['id']);
 
-    for (const tag of movieIDInjection) {
-      if (tag.id === '') {
-        tag.setAttribute('id', el['id']);
-      }
-    }
+    return movieCoverFigure;
   });
 };
