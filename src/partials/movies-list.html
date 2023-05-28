@@ -1,1 +1,23 @@
-<main><div class="covers-container"></div></main>
+<main>
+  <div class="covers-container" id="paginated-list"></div>
+  <nav class="pagination-container">
+    <button
+      class="pagination-button"
+      id="prev-button"
+      aria-label="Previous page"
+      title="Previous page"
+    >
+      <svg>
+        <use href="./icons/icons.svg#arrow-left-icon" width="40px" height="40px"></use>
+      </svg>
+    </button>
+
+    <div id="pagination-numbers"></div>
+
+    <button class="pagination-button" id="next-button" aria-label="Next page" title="Next page">
+      <svg>
+        <use href="./icons/icons.svg#arrow-right-icon" width="40px" height="40px"></use>
+      </svg>
+    </button>
+  </nav>
+</main>
