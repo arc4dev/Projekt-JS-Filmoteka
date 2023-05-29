@@ -35,9 +35,36 @@ export const renderPaginationButtons = () => {
   paginationContainer.innerHTML = '';
 
   let buttonsHTML = '';
-
-  for (let i = 1; i <= state.totalPages; i++) {
+  const maxButtonsToShow = 3;
+  const totalPages = state.totalPages;
+  let startPage = state.page - Math.floor(maxButtonsToShow / 2);
+  let endPage = state.page + Math.floor(maxButtonsToShow / 2);
+  if (totalPages <= maxButtonsToShow) {
+    startPage = 1;
+    endPage = totalPages;
+  } else {
+    if (state.page <= Math.floor(maxButtonsToShow / 2)) {
+      startPage = 1;
+      endPage = maxButtonsToShow;
+    } else if (state.page >= totalPages - Math.floor(maxButtonsToShow / 2)) {
+      startPage = totalPages - maxButtonsToShow + 1;
+      endPage = totalPages;
+    }
+  }
+  if (startPage > 1) {
+    buttonsHTML += `<button class="pagination-button" data-page="1">1</button>`;
+    if (startPage > 2) {
+      buttonsHTML += `<span class="pagination-ellipsis">...</span>`;
+    }
+  }
+  for (let i = startPage; i <= endPage; i++) {
     buttonsHTML += `<button class="pagination-button" data-page="${i}">${i}</button>`;
+  }
+  if (endPage < totalPages) {
+    if (endPage < totalPages - 1) {
+      buttonsHTML += `<span class="pagination-ellipsis">...</span>`;
+    }
+    buttonsHTML += `<button class="pagination-button" data-page="${totalPages}">${totalPages}</button>`;
   }
 
   paginationContainer.innerHTML = buttonsHTML;
