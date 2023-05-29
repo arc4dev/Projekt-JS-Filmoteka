@@ -8,8 +8,10 @@ import './js/team-list';
 import { getMovies, renderMoviesList } from './js/movies-list';
 import { searchMovie } from './js/searchMovie';
 import { renderLoadingSpinner } from './js/loadingSpinner';
+import { popup, acceptCookies } from './js/cookies';
 import { addToList } from './js/addToList';
 import { openModal, closeModal } from './js/details';
+
 
 // VARIABLES
 const searchForm = document.getElementById('search-form');
