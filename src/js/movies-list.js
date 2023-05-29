@@ -96,7 +96,7 @@ const listBuilder = (moviesArray) => {
       'src',
       `https://image.tmdb.org/t/p/w500${el['poster_path']}`
     );
-    coverImg.setAttribute('alt', el['original_title']);
+    coverImg.setAttribute('alt', el['title']);
     coverImg.setAttribute('loading', 'lazy');
     const imgAtrribute = coverImg.getAttribute('src');
     if (imgAtrribute === 'https://image.tmdb.org/t/p/w500null') {
@@ -110,14 +110,14 @@ const listBuilder = (moviesArray) => {
     const movieTitle = document.createElement('h3');
     movieTitle.classList.add('cover__figcaption-title');
 
-    let title = el['name'] || el['original_name'] || el['original_title'];
+    let title = el['name'] || el['original_name'] || el['title'];
     if (title.length > 28) {
       title = title.substring(0, 28) + '...';
     }
     movieTitle.innerHTML = title.toUpperCase();
     movieTitle.setAttribute(
       'title',
-      el['name'] || el['original_name'] || el['original_title']
+      el['name'] || el['original_name'] || el['title']
     ); //tooltip
 
     const movieData = document.createElement('p');
