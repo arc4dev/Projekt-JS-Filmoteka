@@ -4,6 +4,7 @@ import { renderMoviesList } from './js/movies-list';
 import { renderPaginationButtons } from './js/pagination';
 import { searchMovie } from './js/searchMovie';
 import { renderLoadingSpinner } from './js/loadingSpinner';
+import { popup, acceptCookies } from './js/cookies';
 import { addToList } from './js/addToList';
 import { openModal, closeModal } from './js/details';
 import './js/team-list';
@@ -103,9 +104,4 @@ modal.addEventListener('click', (event) => {
   if (event.target === modal) {
     closeModal();
   }
-});
-
-// getMoviesByGenre event
-genreLinks.forEach((link) => {
-  link.addEventListener('click', handleGenreClick);
 });

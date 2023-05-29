@@ -1,0 +1,55 @@
+.cookies {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background-color: #f2f2f2;
+  z-index: 9998;
+  max-height: 15vh;
+  overflow-y: auto;
+  display: none;
+  font-size: 10px;
+  @media screen and (min-width: $breakpointDesktop) {
+    font-size: 12px;
+  }
+
+  &__info {
+    line-height: 1.33;
+    text-align: center;
+    color: black;
+    &--extra {
+      display: none;
+      @media screen and (min-width: $breakpointTablet) {
+        display: inline;
+      }
+    }
+  }
+
+  &__info-wrapper {
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 10px;
+    @media screen and (min-width: $breakpointTablet) {
+      max-width: 728px;
+    }
+    @media screen and (min-width: $breakpointDesktop) {
+      max-width: 1260px;
+    }
+  }
+
+  &__btn {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    background-color: #2ecc71;
+    color: white;
+    border: none;
+    padding: 6px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+    display: block;
+    margin: 0 auto;
+    @media screen and (min-width: $breakpointTablet) {
+      padding: 8px 16px;
+    }
+  }
+}
