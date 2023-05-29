@@ -12,16 +12,17 @@
   align-items: center;
 }
 
-p {
+.footer__details {
   font-size: 14px;
   font-weight: 400;
   line-height: 16.41px;
   padding-inline: 2px;
   padding-block: 5px;
 }
-// .students {
-//     text-decoration: underline;
-// }
+.students {
+    text-decoration: underline;
+    cursor: pointer;
+}
 @media screen and (min-width: 768px) {
   .container-footer {
     height: 79px;
