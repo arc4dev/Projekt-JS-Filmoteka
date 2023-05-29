@@ -13,14 +13,23 @@ const load = (key) => {
   }
 };
 
+function removeDuplicates(array) {
+  if (array) {
+    return array.filter((value, index, self) => {
+      return self.indexOf(value) === index;
+    });
+  }
+}
+
 const renderLocaleStorage = async (typeOfList) => {
   if (typeOfList === 'btn-watched') {
-    const moviesFromLocalStorage = load('WatchedFilms');
+    const moviesFromLocalStorage = await removeDuplicates(load('WatchedFilms'));
+    console.log(moviesFromLocalStorage);
     if (moviesFromLocalStorage === undefined) {
       Notify.failure('Nie ma obejrzanych filmów.');
     } else await renderMoviesList(moviesFromLocalStorage);
   } else if (typeOfList === 'btn-queue') {
-    const moviesFromLocalStorage = load('Queue');
+    const moviesFromLocalStorage = await removeDuplicates(load('Queue'));
     if (moviesFromLocalStorage === undefined) {
       Notify.failure('Nie ma filmów w kolejce.');
     } else await renderMoviesList(moviesFromLocalStorage);

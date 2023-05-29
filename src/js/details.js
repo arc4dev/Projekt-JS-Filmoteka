@@ -1,3 +1,4 @@
+import { addToList } from './addToList';
 import { API_KEY } from './config';
 import { API_LANGUAGE } from './config';
 import { API_URL } from './config';
@@ -12,6 +13,8 @@ const movieOriginalTitleEl = document.getElementById('movieOriginalTitle');
 const movieGenreEl = document.getElementById('movieGenre');
 const movieAboutEl = document.getElementById('movieAbout');
 const movieCoverEl = document.getElementById('movieCover');
+const btnAddToWatch = document.getElementById('btn-addToWatch');
+const btnAddToQueue = document.getElementById('btn-addToQueue');
 
 // Open modal
 const openModal = async (ev) => {
@@ -23,6 +26,13 @@ const openModal = async (ev) => {
     if (movieData) {
       populateModalContent(movieData);
       modal.style.display = 'block';
+      btnAddToWatch.addEventListener('click', (ev) => {
+        addToList(movieData, ev.currentTarget.id);
+      });
+
+      btnAddToQueue.addEventListener('click', (ev) => {
+        addToList(movieData, ev.currentTarget.id);
+      });
     }
   }
 };

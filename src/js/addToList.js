@@ -1,11 +1,9 @@
-const IDFILMWATCHED = 502356; //data from modal window
-const IDFILMQUEUE = 603692; //data from modal window
 const dataBaseOfWatchedFilms = [];
 const dataBaseOfQueueFilms = [];
 
-export function addToList(moviesArray) {
-  const btnAddToWatch = document.getElementById('btn-addToWatch');
-  const btnAddToQueue = document.getElementById('btn-addToQueue');
+export function addToList(movieData, evCurrentTarget) {
+  console.log(evCurrentTarget);
+  // console.log(movieData);
 
   const save = (key, value) => {
     try {
@@ -16,19 +14,20 @@ export function addToList(moviesArray) {
     }
   };
 
-  btnAddToWatch.addEventListener('click', () => {
-    let filmToWatchList = moviesArray.find((el) => el.id === IDFILMWATCHED);
-    if (!dataBaseOfWatchedFilms.includes(filmToWatchList)) {
-      dataBaseOfWatchedFilms.push(filmToWatchList);
-    }
+  if (
+    evCurrentTarget === 'btn-addToWatch' &&
+    !dataBaseOfWatchedFilms.includes(movieData)
+  ) {
+    dataBaseOfWatchedFilms.push(movieData);
     save('WatchedFilms', dataBaseOfWatchedFilms);
-  });
-
-  btnAddToQueue.addEventListener('click', () => {
-    let filmToQueue = moviesArray.find((el) => el.id === IDFILMQUEUE);
-    if (!dataBaseOfQueueFilms.includes(filmToQueue)) {
-      dataBaseOfQueueFilms.push(filmToQueue);
-    }
+  }
+  if (
+    evCurrentTarget === 'btn-addToQueue' &&
+    !dataBaseOfQueueFilms.includes(movieData)
+  ) {
+    dataBaseOfQueueFilms.push(movieData);
     save('Queue', dataBaseOfQueueFilms);
-  });
+  }
+  console.log(dataBaseOfWatchedFilms);
+  console.log(dataBaseOfQueueFilms);
 }

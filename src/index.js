@@ -11,7 +11,6 @@ import { renderLoadingSpinner } from './js/loadingSpinner';
 import { addToList } from './js/addToList';
 import { openModal, closeModal } from './js/details';
 
-
 // VARIABLES
 const searchForm = document.getElementById('search-form');
 export const moviesContainer = document.querySelector('.covers-container');
@@ -34,7 +33,6 @@ const renderTrendingMovies = async () => {
     renderLoadingSpinner(moviesContainer);
     // 2. Get trending movies
     const { results: movies, total_pages } = await getMovies(state.page);
-    addToList(movies);
     // 3. Set movies in state
     state.movies = movies;
     state.totalPages = total_pages;
@@ -61,7 +59,6 @@ const renderSearchedMovies = async (e) => {
       state.page,
       formInput.value
     );
-    addToList(movies);
     // 4. Set movies in state
     state.movies = movies;
     state.totalPages = total_pages;
