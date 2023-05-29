@@ -2,7 +2,7 @@ import './sass/main.scss';
 import { getMovies } from './js/movies-list';
 import { renderMoviesList } from './js/movies-list';
 import { renderPaginationButtons } from './js/pagination';
-
+import { handleGenreClick } from './js/getMoviesByGenre';
 import { renderMoviesPage, renderPaginationButtons } from './js/pagination';
 import './js/team-list';
 import { getMovies, renderMoviesList } from './js/movies-list';
@@ -12,13 +12,13 @@ import { popup, acceptCookies } from './js/cookies';
 import { addToList } from './js/addToList';
 import { openModal, closeModal } from './js/details';
 
-
 // VARIABLES
 const searchForm = document.getElementById('search-form');
+
 export const moviesContainer = document.querySelector('.covers-container');
-
 const closeBtn = document.getElementById('close-modal');
-
+const genresContainer = document.querySelector('.container-genres');
+const genreLinks = genresContainer.querySelectorAll('.genres');
 // STATE
 export const state = {
   movies: [],
@@ -96,3 +96,8 @@ moviesContainer.addEventListener('click', openModal);
 
 // Close modal
 closeBtn.addEventListener('click', closeModal);
+
+// Filter movies by genre
+genreLinks.forEach((link) => {
+  link.addEventListener('click', handleGenreClick);
+});
