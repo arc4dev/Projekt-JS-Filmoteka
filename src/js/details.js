@@ -23,6 +23,8 @@ const openModal = async (ev) => {
     if (movieData) {
       populateModalContent(movieData);
       modal.style.display = 'block';
+      window.addEventListener('keydown', handleEscapeKey);
+      window.addEventListener('click', handleClickOutsideModal);
     }
   }
 };
@@ -64,6 +66,22 @@ const getGenreNames = (genres) => {
 // Close modal
 const closeModal = () => {
   modal.style.display = 'none';
+  window.removeEventListener('keydown', closeModal);
+  modal.removeEventListener('click', closeModal);
+};
+
+// Listener for Escape
+const handleEscapeKey = (ev) => {
+  if (ev.key === 'Escape') {
+    closeModal();
+  }
+};
+
+// Listener for click outside modal
+const handleClickOutsideModal = (ev) => {
+  if (ev.target === modal) {
+    closeModal();
+  }
 };
 
 export { modal, openModal, closeModal };

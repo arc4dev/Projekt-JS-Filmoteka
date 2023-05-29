@@ -11,7 +11,6 @@ import { renderLoadingSpinner } from './js/loadingSpinner';
 import { addToList } from './js/addToList';
 import { openModal, closeModal } from './js/details';
 
-
 // VARIABLES
 const searchForm = document.getElementById('search-form');
 export const moviesContainer = document.querySelector('.covers-container');
@@ -95,15 +94,3 @@ moviesContainer.addEventListener('click', openModal);
 
 // Close modal
 closeBtn.addEventListener('click', closeModal);
-
-window.addEventListener('keydown', (event) => {
-  if (event.key === 'Escape') {
-    closeModal();
-  }
-});
-
-modal.addEventListener('click', (event) => {
-  if (event.target === modal) {
-    closeModal();
-  }
-});
