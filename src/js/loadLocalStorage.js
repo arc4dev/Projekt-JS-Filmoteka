@@ -4,6 +4,7 @@ import { renderMoviesList } from './movies-list';
 const btnWatche = document.getElementById('btn-watched');
 const btnQueue = document.getElementById('btn-queue');
 
+//function load from localstorage
 const load = (key) => {
   try {
     const serializedState = localStorage.getItem(key);
@@ -24,7 +25,6 @@ function removeDuplicates(array) {
 const renderLocaleStorage = async (typeOfList) => {
   if (typeOfList === 'btn-watched') {
     const moviesFromLocalStorage = await removeDuplicates(load('WatchedFilms'));
-    console.log(moviesFromLocalStorage);
     if (moviesFromLocalStorage === undefined) {
       Notify.failure('Nie ma obejrzanych filmów.');
     } else await renderMoviesList(moviesFromLocalStorage);

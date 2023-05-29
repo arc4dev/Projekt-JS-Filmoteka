@@ -15,6 +15,7 @@ const movieAboutEl = document.getElementById('movieAbout');
 const movieCoverEl = document.getElementById('movieCover');
 const btnAddToWatch = document.getElementById('btn-addToWatch');
 const btnAddToQueue = document.getElementById('btn-addToQueue');
+const closeBtn = document.getElementById('close-modal');
 
 // Open modal
 const openModal = async (ev) => {
@@ -26,12 +27,38 @@ const openModal = async (ev) => {
     if (movieData) {
       populateModalContent(movieData);
       modal.style.display = 'block';
-      btnAddToWatch.addEventListener('click', (ev) => {
+
+      const addToWatchClickHandler = (ev) => {
+        ev.stopPropagation();
         addToList(movieData, ev.currentTarget.id);
+      };
+
+      btnAddToWatch.addEventListener('click', addToWatchClickHandler);
+
+      const addToQueueClickHandler = (ev) => {
+        ev.stopPropagation();
+        addToList(movieData, ev.currentTarget.id);
+      };
+      btnAddToQueue.addEventListener('click', addToQueueClickHandler);
+
+      const closeModal = () => {
+        modal.style.display = 'none';
+        btnAddToWatch.removeEventListener('click', addToWatchClickHandler);
+        btnAddToQueue.removeEventListener('click', addToQueueClickHandler);
+      };
+
+      closeBtn.addEventListener('click', closeModal);
+
+      window.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          closeModal();
+        }
       });
 
-      btnAddToQueue.addEventListener('click', (ev) => {
-        addToList(movieData, ev.currentTarget.id);
+      modal.addEventListener('click', (event) => {
+        if (event.target === modal) {
+          closeModal();
+        }
       });
     }
   }
@@ -69,11 +96,6 @@ const populateModalContent = (movieData) => {
 // Get genres names
 const getGenreNames = (genres) => {
   return genres.map((genre) => genre.name).join(', ');
-};
-
-// Close modal
-const closeModal = () => {
-  modal.style.display = 'none';
 };
 
 export { modal, openModal, closeModal };
