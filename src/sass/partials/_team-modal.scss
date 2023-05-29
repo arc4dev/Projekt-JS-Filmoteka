@@ -7,11 +7,11 @@
     color: #ff6b08;
     font-size: 2.5rem;
     letter-spacing: 0.04em;
-    padding-bottom: 1.5em;
+    padding-top: 0.7em;
   }
   &_list {
     gap: 30px;
-    padding: 0 30px;
+    padding: 20px 30px;
     flex-wrap: wrap;
   }
   &_names {
@@ -20,7 +20,9 @@
 }
 
 .modal-btn--container {
-  align-self: flex-end;
+    display: flex;
+    width: 100%;
+    justify-content: flex-end;
 }
 
 .modal-btn {
@@ -28,6 +30,7 @@
   background-color: transparent;
   padding-top: 15px;
   padding-right: 15px;
+  position: fixed;
 }
 
 .modal-btn-icon {
@@ -107,7 +110,7 @@
   @include flex();
   justify-content: flex-start;
   flex-direction: column;
-  gap: 2em;
+  // gap: 2em;
   margin: auto;
   height: 90%;
   width: 80%;
