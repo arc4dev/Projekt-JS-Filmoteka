@@ -4,7 +4,9 @@ import './js/team-list';
 import { getMovies, renderMoviesList } from './js/movies-list';
 import { searchMovie } from './js/searchMovie';
 import { renderLoadingSpinner } from './js/loadingSpinner';
+import { addToList } from './js/addToList';
 import { openModal, closeModal } from './js/details';
+
 
 // VARIABLES
 const searchForm = document.getElementById('search-form');
@@ -26,6 +28,7 @@ const renderTrendingMovies = async () => {
     renderLoadingSpinner(moviesContainer);
     // 2. Get trending movies
     const movies = await getMovies();
+    addToList(movies);
     // 3. Set movies in state
     state.movies = movies;
     // 4. Render movies from state
@@ -47,6 +50,7 @@ const renderSearchedMovies = async (e) => {
     renderLoadingSpinner(moviesContainer);
     // 3. Get movies query
     const movies = await searchMovie(formInput);
+    addToList(movies);
     // 4. Set movies in state
     state.movies = movies;
     // 5. Render movies from state
