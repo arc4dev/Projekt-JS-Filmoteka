@@ -2,20 +2,15 @@ import './sass/main.scss';
 import { getMovies } from './js/movies-list';
 import { renderMoviesList } from './js/movies-list';
 import { renderPaginationButtons } from './js/pagination';
-
-import { renderMoviesPage, renderPaginationButtons } from './js/pagination';
-import './js/team-list';
-import { getMovies, renderMoviesList } from './js/movies-list';
 import { searchMovie } from './js/searchMovie';
 import { renderLoadingSpinner } from './js/loadingSpinner';
 import { addToList } from './js/addToList';
 import { openModal, closeModal } from './js/details';
-
+import './js/team-list';
 
 // VARIABLES
 const searchForm = document.getElementById('search-form');
 export const moviesContainer = document.querySelector('.covers-container');
-
 const closeBtn = document.getElementById('close-modal');
 
 // STATE
@@ -56,7 +51,6 @@ const renderSearchedMovies = async (e) => {
     // 2. Render loading spinner
     renderLoadingSpinner(moviesContainer);
     // 3. Get movies query
-
     const { results: movies, total_pages } = await searchMovie(
       state.page,
       formInput.value
