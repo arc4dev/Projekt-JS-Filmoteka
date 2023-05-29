@@ -1,4 +1,5 @@
 import './sass/main.scss';
+import { renderMoviesPage, renderPaginationButtons } from './js/pagination';
 import './js/team-list';
 import { getMovies, renderMoviesList } from './js/movies-list';
 import { searchMovie } from './js/searchMovie';
@@ -12,9 +13,10 @@ const moviesContainer = document.querySelector('.covers-container');
 const closeBtn = document.getElementById('close-modal');
 
 // STATE
-const state = {
+export const state = {
   movies: [],
   page: 1,
+  perPage: 10,
 };
 
 // FUNCTIONS
@@ -27,7 +29,9 @@ const renderTrendingMovies = async () => {
     // 3. Set movies in state
     state.movies = movies;
     // 4. Render movies from state
-    renderMoviesList(state.movies);
+    renderMoviesPage();
+    // 5. Render pagination buttons
+    renderPaginationButtons();
   } catch (err) {
     console.error(err);
   }
@@ -46,7 +50,9 @@ const renderSearchedMovies = async (e) => {
     // 4. Set movies in state
     state.movies = movies;
     // 5. Render movies from state
-    renderMoviesList(state.movies);
+    renderMoviesPage();
+    // 6. Render pagination buttons
+    renderPaginationButtons();
   } catch (err) {
     console.error(err);
   }
