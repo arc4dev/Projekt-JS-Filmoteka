@@ -1,12 +1,16 @@
 import './sass/main.scss';
 import { renderMoviesPage, renderPaginationButtons } from './js/pagination';
+import './js/team-list';
 import { getMovies, renderMoviesList } from './js/movies-list';
 import { searchMovie } from './js/searchMovie';
 import { renderLoadingSpinner } from './js/loadingSpinner';
+import { openModal, closeModal } from './js/details';
 
 // VARIABLES
 const searchForm = document.getElementById('search-form');
 const moviesContainer = document.querySelector('.covers-container');
+
+const closeBtn = document.getElementById('close-modal');
 
 // STATE
 export const state = {
@@ -66,3 +70,23 @@ if (searchForm) {
 if (searchForm) {
   searchForm.addEventListener('submit', renderSearchedMovies);
 }
+
+// Listeners
+
+// Open modal
+moviesContainer.addEventListener('click', openModal);
+
+// Close modal
+closeBtn.addEventListener('click', closeModal);
+
+window.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') {
+    closeModal();
+  }
+});
+
+modal.addEventListener('click', (event) => {
+  if (event.target === modal) {
+    closeModal();
+  }
+});
