@@ -1,17 +1,31 @@
 import './sass/main.scss';
+import { getMovies } from './js/movies-list';
+import { renderMoviesList } from './js/movies-list';
+import { renderPaginationButtons } from './js/pagination';
+
+import { renderMoviesPage, renderPaginationButtons } from './js/pagination';
+import './js/team-list';
 import { getMovies, renderMoviesList } from './js/movies-list';
 import { searchMovie } from './js/searchMovie';
 import { renderLoadingSpinner } from './js/loadingSpinner';
 import { popup, acceptCookies } from './js/cookies';
+import { addToList } from './js/addToList';
+import { openModal, closeModal } from './js/details';
+
 
 // VARIABLES
 const searchForm = document.getElementById('search-form');
-const moviesContainer = document.querySelector('.covers-container');
+export const moviesContainer = document.querySelector('.covers-container');
+
+const closeBtn = document.getElementById('close-modal');
 
 // STATE
-const state = {
+export const state = {
   movies: [],
   page: 1,
+  perPage: 20,
+  totalPages: 0,
+  query: '',
 };
 
 // FUNCTIONS
@@ -20,11 +34,15 @@ const renderTrendingMovies = async () => {
     // 1. Render loading spinner
     renderLoadingSpinner(moviesContainer);
     // 2. Get trending movies
-    const movies = await getMovies();
+    const { results: movies, total_pages } = await getMovies(state.page);
+    addToList(movies);
     // 3. Set movies in state
     state.movies = movies;
+    state.totalPages = total_pages;
     // 4. Render movies from state
     renderMoviesList(state.movies);
+    // 5. Render pagination buttons
+    renderPaginationButtons();
   } catch (err) {
     console.error(err);
   }
@@ -39,11 +57,20 @@ const renderSearchedMovies = async (e) => {
     // 2. Render loading spinner
     renderLoadingSpinner(moviesContainer);
     // 3. Get movies query
-    const movies = await searchMovie(formInput);
+
+    const { results: movies, total_pages } = await searchMovie(
+      state.page,
+      formInput.value
+    );
+    addToList(movies);
     // 4. Set movies in state
     state.movies = movies;
+    state.totalPages = total_pages;
+    state.query = formInput.value.trim();
     // 5. Render movies from state
     renderMoviesList(state.movies);
+    // 6. Render pagination buttons
+    renderPaginationButtons();
   } catch (err) {
     console.error(err);
   }
@@ -61,3 +88,11 @@ if (searchForm) {
 if (searchForm) {
   searchForm.addEventListener('submit', renderSearchedMovies);
 }
+
+// Listeners
+
+// Open modal
+moviesContainer.addEventListener('click', openModal);
+
+// Close modal
+closeBtn.addEventListener('click', closeModal);

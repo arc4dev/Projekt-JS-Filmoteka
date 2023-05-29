@@ -103,6 +103,7 @@
     background-image: url(/src/images/header-home-tablet-background@1x.jpg);
     @media screen and (min-resolution: 2dppx), (min-device-pixel-ratio: 2) {
       background-image: url(/src/images/header-home-tablet-background@2x.jpg);
+      padding-bottom: 80px;
     }
     &_title {
       display: block;

@@ -44,11 +44,11 @@ const convertElementsToHTMLString = (elements) => {
   return htmlString;
 };
 
-export const getMovies = async (url = defaultMoviesURL) => {
+export const getMovies = async (page = 1, url = defaultMoviesURL) => {
   try {
-    const moviesResponse = await axios.get(url);
-    const moviesArray = moviesResponse.data.results;
-    return moviesArray;
+    const moviesResponse = await axios.get(`${url}&page=${page}`);
+    console.log(moviesResponse.data);
+    return moviesResponse.data;
   } catch (err) {
     throw err;
   }

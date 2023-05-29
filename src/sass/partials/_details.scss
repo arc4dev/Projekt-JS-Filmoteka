@@ -1,0 +1,167 @@
+.details-modal {
+  display: none;
+  position: fixed;
+  z-index: 1;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  overflow: auto;
+  scrollbar-width: thin;
+  scrollbar-color: transparent transparent;
+  padding-bottom: 20px;
+}
+
+.details {
+  background-color: $color-primary;
+  color: $color-primary-dark;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  position: relative;
+  padding: 48px 20px 40px;
+  margin: 20px auto 0;
+  max-width: 280px;
+  font-family: $font-primary;
+  font-weight: 500;
+  @media screen and (min-width: $breakpointTablet) {
+    max-width: 704px;
+    flex-direction: row;
+    gap: 68px;
+    padding: 40px 36px;
+  }
+  @media screen and (min-width: $breakpointDesktop) {
+    max-width: 806px;
+    gap: 16px;
+    padding: 40px 12px;
+  }
+  &__cover {
+    border-radius: $border-radius;
+    overflow: hidden;
+    max-width: 240px;
+    @media screen and (min-width: $breakpointTablet) {
+      max-width: fit-content;
+      min-width: 264px;
+    }
+    @media screen and (min-width: $breakpointDesktop) {
+      min-width: 375px;
+    }
+  }
+  &__title {
+    font-size: 20px;
+    line-height: 1.15;
+    text-transform: uppercase;
+    @media screen and (min-width: $breakpointDesktop) {
+      font-size: 30px;
+    }
+  }
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    font-size: 12px;
+    line-height: 1.33;
+  }
+  &__info-wrapper {
+    &:not(:first-child) {
+      .details__info--secoundary,
+      .details__info--primary {
+        padding-top: 8px;
+      }
+    }
+  }
+  &__info {
+    &--primary {
+      text-align: left;
+      vertical-align: top;
+    }
+    &--secoundary {
+      color: $color-secondary;
+      min-width: 108px;
+      text-align: left;
+      vertical-align: top;
+    }
+    &--special {
+      background-color: $color-brand;
+      border-radius: $border-radius;
+      color: $color-primary;
+      padding: 2px;
+    }
+  }
+  &__about-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+  &__about-title {
+    text-transform: uppercase;
+  }
+  &__about-title {
+    text-transform: uppercase;
+  }
+  &__about-content {
+    line-height: 1.67;
+  }
+  &__btn-wrapper {
+    display: flex;
+    gap: 20px;
+    @media screen and (min-width: $breakpointTablet) {
+      gap: 15px;
+    }
+    @media screen and (min-width: $breakpointDesktop) {
+      padding-left: 8px;
+    }
+  }
+  &__btn {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-transform: uppercase;
+    width: 110px;
+    height: 44px;
+    border: 1px solid $color-primary-dark;
+    border-radius: $border-radius;
+    background-color: $color-primary;
+    padding: 6px;
+    transition: $transitionDefault;
+    @media screen and (min-width: $breakpointTablet) {
+      width: 125px;
+    }
+    @media screen and (min-width: $breakpointDesktop) {
+      width: 136px;
+    }
+    &:hover,
+    &:focus {
+      background-color: $color-brand;
+      border: 1px solid $color-primary;
+      color: $color-primary;
+      transform: scale(1.1);
+    }
+    &:active {
+      transform: scale(1);
+    }
+  }
+  &__close {
+    position: absolute;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 8px;
+    right: 8px;
+    width: 30px;
+    height: 30px;
+    font-size: 30px;
+    font-weight: bold;
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    color: black;
+    transition: $transitionDefault;
+    &:hover {
+      color: $color-warning;
+      transform: scale(1.1);
+    }
+  }
+}
