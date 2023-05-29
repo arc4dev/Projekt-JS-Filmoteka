@@ -7,10 +7,13 @@ import { renderLoadingSpinner } from './js/loadingSpinner';
 import { addToList } from './js/addToList';
 import { openModal, closeModal } from './js/details';
 import './js/team-list';
+import { handleGenreClick } from './js/getMoviesByGenre';
 
 // VARIABLES
 const searchForm = document.getElementById('search-form');
 export const moviesContainer = document.querySelector('.covers-container');
+const genresContainer = document.querySelector('.container-genres');
+const genreLinks = genresContainer.querySelectorAll('.genres');
 const closeBtn = document.getElementById('close-modal');
 
 // STATE
@@ -100,4 +103,9 @@ modal.addEventListener('click', (event) => {
   if (event.target === modal) {
     closeModal();
   }
+});
+
+// getMoviesByGenre event
+genreLinks.forEach((link) => {
+  link.addEventListener('click', handleGenreClick);
 });

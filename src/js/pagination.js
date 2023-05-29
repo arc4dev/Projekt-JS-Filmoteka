@@ -6,14 +6,6 @@ import { renderLoadingSpinner } from './loadingSpinner';
 
 const paginationContainer = document.querySelector('.pagination-container');
 
-// export const renderMoviesPage = () => {
-//   console.log('Movies:', state.movies); //
-//   const start = (state.page - 1) * state.perPage;
-//   const end = start + state.perPage;
-//   const moviesToRender = state.movies.slice(start, end);
-//   renderMoviesList(moviesToRender);
-// };
-
 export const changePage = async (page, query) => {
   try {
     renderLoadingSpinner(moviesContainer);
