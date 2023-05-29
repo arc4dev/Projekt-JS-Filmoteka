@@ -4,7 +4,7 @@ import { API_LANGUAGE } from './config';
 import { API_URL } from './config';
 import { TRENDING_URL } from './config';
 const moviesContainer = document.querySelector('.covers-container');
-const genresList = {};
+export const genresList = {};
 const defaultMoviesURL = TRENDING_URL;
 const TVGenresURL = `${API_URL}genre/tv/list?api_key=${API_KEY}&language=${API_LANGUAGE}`;
 const movieGenresURL = `${API_URL}genre/movie/list?api_key=${API_KEY}&language=${API_LANGUAGE}`;
