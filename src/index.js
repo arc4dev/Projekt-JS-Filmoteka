@@ -2,12 +2,21 @@ import './sass/main.scss';
 import { getMovies } from './js/movies-list';
 import { renderMoviesList } from './js/movies-list';
 import { renderPaginationButtons } from './js/pagination';
+
+import { renderMoviesPage, renderPaginationButtons } from './js/pagination';
+import './js/team-list';
+import { getMovies, renderMoviesList } from './js/movies-list';
 import { searchMovie } from './js/searchMovie';
 import { renderLoadingSpinner } from './js/loadingSpinner';
+import { addToList } from './js/addToList';
+import { openModal, closeModal } from './js/details';
+
 
 // VARIABLES
 const searchForm = document.getElementById('search-form');
 export const moviesContainer = document.querySelector('.covers-container');
+
+const closeBtn = document.getElementById('close-modal');
 
 // STATE
 export const state = {
@@ -25,6 +34,7 @@ const renderTrendingMovies = async () => {
     renderLoadingSpinner(moviesContainer);
     // 2. Get trending movies
     const { results: movies, total_pages } = await getMovies(state.page);
+    addToList(movies);
     // 3. Set movies in state
     state.movies = movies;
     state.totalPages = total_pages;
@@ -46,10 +56,12 @@ const renderSearchedMovies = async (e) => {
     // 2. Render loading spinner
     renderLoadingSpinner(moviesContainer);
     // 3. Get movies query
+
     const { results: movies, total_pages } = await searchMovie(
       state.page,
       formInput.value
     );
+    addToList(movies);
     // 4. Set movies in state
     state.movies = movies;
     state.totalPages = total_pages;
@@ -75,3 +87,23 @@ if (searchForm) {
 if (searchForm) {
   searchForm.addEventListener('submit', renderSearchedMovies);
 }
+
+// Listeners
+
+// Open modal
+moviesContainer.addEventListener('click', openModal);
+
+// Close modal
+closeBtn.addEventListener('click', closeModal);
+
+window.addEventListener('keydown', (event) => {
+  if (event.key === 'Escape') {
+    closeModal();
+  }
+});
+
+modal.addEventListener('click', (event) => {
+  if (event.target === modal) {
+    closeModal();
+  }
+});
