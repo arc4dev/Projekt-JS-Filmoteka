@@ -14,7 +14,7 @@ export const state = {
   movies: [],
   page: 1,
   perPage: 20,
-  totalResults: 0,
+  totalPages: 0,
   query: '',
 };
 
