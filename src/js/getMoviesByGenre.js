@@ -1,11 +1,7 @@
 import axios from 'axios';
-import { API_URL } from './config';
-import { API_KEY } from './config';
-import { API_LANGUAGE } from './config';
+import { API_URL, API_KEY, API_LANGUAGE } from './config';
 import { genresList } from './movies-list';
-import { renderMoviesList } from './movies-list';
-import { renderPaginationButtons } from './pagination';
-import { state } from '..';
+import { renderMoviesList, renderPaginationButtons } from './movies-list';
 
 export const handleGenreClick = async (event) => {
   const selectedGenre = event.target.textContent;
@@ -18,6 +14,7 @@ export const handleGenreClick = async (event) => {
     console.error(err);
   }
 };
+
 const getGenreID = (genreName) => {
   for (const genreID in genresList) {
     if (genresList[genreID] === genreName) {
@@ -25,6 +22,7 @@ const getGenreID = (genreName) => {
     }
   }
 };
+
 const getMoviesByGenre = async (genresID) => {
   try {
     const response = await axios.get(
