@@ -141,6 +141,15 @@
     &:active {
       transform: scale(1);
     }
+    &--trailer {
+      width: 240px;
+      @media screen and (min-width: $breakpointTablet) {
+        width: 265px;
+      }
+      @media screen and (min-width: $breakpointDesktop) {
+        width: 280px;
+      }
+    }
   }
   &__close {
     position: absolute;

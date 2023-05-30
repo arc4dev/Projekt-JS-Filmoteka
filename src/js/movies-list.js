@@ -1,10 +1,12 @@
 import axios from 'axios';
+import noImage from '../images/movie.png';
 import { API_KEY } from './config';
 import { API_LANGUAGE } from './config';
 import { API_URL } from './config';
 import { TRENDING_URL } from './config';
+
 const moviesContainer = document.querySelector('.covers-container');
-const genresList = {};
+export const genresList = {};
 const defaultMoviesURL = TRENDING_URL;
 const TVGenresURL = `${API_URL}genre/tv/list?api_key=${API_KEY}&language=${API_LANGUAGE}`;
 const movieGenresURL = `${API_URL}genre/movie/list?api_key=${API_KEY}&language=${API_LANGUAGE}`;
@@ -96,11 +98,11 @@ const listBuilder = (moviesArray) => {
       'src',
       `https://image.tmdb.org/t/p/w500${el['poster_path']}`
     );
-    coverImg.setAttribute('alt', el['original_title']);
+    coverImg.setAttribute('alt', el['title']);
     coverImg.setAttribute('loading', 'lazy');
     const imgAtrribute = coverImg.getAttribute('src');
     if (imgAtrribute === 'https://image.tmdb.org/t/p/w500null') {
-      coverImg.setAttribute('src', `noImage`);
+      coverImg.setAttribute('src', `${noImage}`);
       coverImg.setAttribute('alt', `no poster found`);
     }
     //title, genre
@@ -110,14 +112,14 @@ const listBuilder = (moviesArray) => {
     const movieTitle = document.createElement('h3');
     movieTitle.classList.add('cover__figcaption-title');
 
-    let title = el['name'] || el['original_name'] || el['original_title'];
+    let title = el['name'] || el['original_name'] || el['title'];
     if (title.length > 28) {
       title = title.substring(0, 28) + '...';
     }
     movieTitle.innerHTML = title.toUpperCase();
     movieTitle.setAttribute(
       'title',
-      el['name'] || el['original_name'] || el['original_title']
+      el['name'] || el['original_name'] || el['title']
     ); //tooltip
 
     const movieData = document.createElement('p');
@@ -130,13 +132,18 @@ const listBuilder = (moviesArray) => {
         movieGenresArray.push(genresList[`${id}`]);
       }
     }
-    const releaseDate = new Date(
-      `${el['release_date'] || el['first_air_date']}`
-    );
-    const voteAverage = el['vote_average'].toFixed(1);
-    movieData.innerHTML = `${movieGenresArray.join(
-      ', '
-    )} | ${releaseDate.getFullYear()} | <span class = cover__figcaption-rating> ${voteAverage}</span>`;
+
+    const releaseDate = el['release_date'] || el['first_air_date'];
+    const releaseYear = releaseDate ? new Date(releaseDate).getFullYear() : '';
+    const voteAverage = el['vote_average'] ? el['vote_average'].toFixed(1) : '';
+
+    movieData.innerHTML = `${movieGenresArray.join(', ')}${
+      movieGenresArray.length > 0 ? '  ' : ''
+    }${releaseYear ? ' | ' + releaseYear : ''}${
+      voteAverage
+        ? ` <span class="cover__figcaption-rating">${voteAverage}</span>`
+        : ''
+    }`;
 
     coverFigcaption.append(movieTitle);
     coverFigcaption.append(movieData);
@@ -144,7 +151,6 @@ const listBuilder = (moviesArray) => {
     movieCoverFigure.append(coverImg);
     movieCoverFigure.append(moreDetailsLabel);
     movieCoverFigure.append(coverFigcaption);
-    // moviesContainer.append(movieCoverFigure);
 
     movieCoverFigure.setAttribute('id', el['id']);
 

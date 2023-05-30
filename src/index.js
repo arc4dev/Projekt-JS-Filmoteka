@@ -1,18 +1,22 @@
 import './sass/main.scss';
-import { getMovies } from './js/movies-list';
-import { renderMoviesList } from './js/movies-list';
 import { renderPaginationButtons } from './js/pagination';
-
-import { renderMoviesPage, renderPaginationButtons } from './js/pagination';
+import { handleGenreClick } from './js/getMoviesByGenre';
 import './js/team-list';
 import { getMovies, renderMoviesList } from './js/movies-list';
 import { searchMovie } from './js/searchMovie';
 import { renderLoadingSpinner } from './js/loadingSpinner';
+import { popup, acceptCookies } from './js/cookies';
+import { addToList } from './js/addToList';
 import { openModal, closeModal } from './js/details';
+import './js/trailer';
 
 // VARIABLES
 const searchForm = document.getElementById('search-form');
+
 export const moviesContainer = document.querySelector('.covers-container');
+const closeBtn = document.getElementById('close-modal');
+const genresContainer = document.querySelector('.container-genres');
+const genreLinks = genresContainer.querySelectorAll('.genres');
 
 // STATE
 export const state = {
@@ -32,11 +36,11 @@ const renderTrendingMovies = async () => {
     const { results: movies, total_pages } = await getMovies(state.page);
     // 3. Set movies in state
     state.movies = movies;
-    state.totalPages = total_pages;
+    state.totalPages = Math.min(total_pages, 10);
     // 4. Render movies from state
     renderMoviesList(state.movies);
     // 5. Render pagination buttons
-    renderPaginationButtons();
+    renderPaginationButtons(state.totalPages);
   } catch (err) {
     console.error(err);
   }
@@ -58,12 +62,12 @@ const renderSearchedMovies = async (e) => {
     );
     // 4. Set movies in state
     state.movies = movies;
-    state.totalPages = total_pages;
+    state.totalPages = Math.min(total_pages, 10);
     state.query = formInput.value.trim();
     // 5. Render movies from state
     renderMoviesList(state.movies);
     // 6. Render pagination buttons
-    renderPaginationButtons();
+    renderPaginationButtons(state.totalPages);
   } catch (err) {
     console.error(err);
   }
@@ -86,3 +90,11 @@ if (searchForm) {
 
 // Open modal
 moviesContainer.addEventListener('click', openModal);
+
+// Close modal
+closeBtn.addEventListener('click', closeModal);
+
+// Filter movies by genre
+genreLinks.forEach((link) => {
+  link.addEventListener('click', handleGenreClick);
+});

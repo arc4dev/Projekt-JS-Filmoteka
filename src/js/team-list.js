@@ -1,22 +1,33 @@
 export const studentsLink = document.querySelector('.students');
 const modalWindow = document.getElementById('modal');
 const modalBtn = document.querySelector('.modal-btn');
-const modalOpen = document.querySelector('.students');
 
-studentsLink.addEventListener('click', () => {
-  modalWindow.classList.remove('is-hidden');
-});
-
-modalBtn.addEventListener('click', () => {
-  modalWindow.classList.add('is-hidden');
-});
-
-document.addEventListener('keydown', (e) => {
-  if (e.key === 'Escape' || e.code === 27) {
-    modalWindow.classList.add('is-hidden');
+const modalOpen = () => {
+  if (modalWindow) {
+    modalWindow.classList.remove('is-hidden');
+    modalBtn.addEventListener('click', modalClose);
+    window.addEventListener('keydown', modalCloseByEsc);
+    window.addEventListener('click', backdropClose);
   }
-});
-// backdrop.addEventListener('click', (e) => {
-//    e.stopPropagation();
-//     modalWindow.classList.add('is-hidden');
-// });
+}
+
+const modalClose = () => {
+  modalWindow.classList.add('is-hidden');
+  modalBtn.removeEventListener('click', modalCloseByEsc);
+  window.removeEventListener('keydown', modalClose);
+  window.removeEventListener('click', backdropClose);
+  }
+  
+const modalCloseByEsc =  (e) => {
+    if (e.key === 'Escape' || e.code === 27) {
+      modalClose();
+    }
+  };
+  
+ const backdropClose = (e) => {
+    if (e.target === modalWindow) {
+      modalClose();
+    }
+  }
+  
+studentsLink.addEventListener('click', modalOpen);

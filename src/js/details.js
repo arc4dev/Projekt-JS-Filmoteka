@@ -3,7 +3,7 @@ import { API_KEY } from './config';
 import { API_LANGUAGE } from './config';
 import { API_URL } from './config';
 import { API_IMG_URL } from './config';
-
+import noImage from '../images/movie.png';
 // Elements
 const modal = document.getElementById('details-modal');
 const movieTitleEl = document.getElementById('movieTitle');
@@ -13,6 +13,7 @@ const movieOriginalTitleEl = document.getElementById('movieOriginalTitle');
 const movieGenreEl = document.getElementById('movieGenre');
 const movieAboutEl = document.getElementById('movieAbout');
 const movieCoverEl = document.getElementById('movieCover');
+const trailerBtn = document.getElementById('btn-trailer');
 const btnAddToWatch = document.getElementById('btn-addToWatch');
 const btnAddToQueue = document.getElementById('btn-addToQueue');
 const closeBtn = document.getElementById('close-modal');
@@ -27,6 +28,10 @@ const openModal = async (ev) => {
     if (movieData) {
       populateModalContent(movieData);
       modal.style.display = 'block';
+      window.addEventListener('keydown', handleEscapeKey);
+      window.addEventListener('click', handleClickOutsideModal);
+
+      trailerBtn.dataset.trailer = movieId;
 
       const addToWatchClickHandler = (ev) => {
         ev.stopPropagation();
@@ -90,12 +95,36 @@ const populateModalContent = (movieData) => {
   const movieCoverImg = document.createElement('img');
   movieCoverImg.src = `${API_IMG_URL}${movieData.poster_path}`;
   movieCoverImg.alt = `${movieData.title} Cover`;
+  if (movieCoverImg.src === 'https://image.tmdb.org/t/p/w500null') {
+    movieCoverImg.src = `${noImage}`;
+  }
   movieCoverEl.appendChild(movieCoverImg);
 };
 
 // Get genres names
 const getGenreNames = (genres) => {
   return genres.map((genre) => genre.name).join(', ');
+};
+
+// Close modal
+const closeModal = () => {
+  modal.style.display = 'none';
+  window.removeEventListener('keydown', closeModal);
+  modal.removeEventListener('click', closeModal);
+};
+
+// Listener for Escape
+const handleEscapeKey = (ev) => {
+  if (ev.key === 'Escape') {
+    closeModal();
+  }
+};
+
+// Listener for click outside modal
+const handleClickOutsideModal = (ev) => {
+  if (ev.target === modal) {
+    closeModal();
+  }
 };
 
 export { modal, openModal, closeModal };
