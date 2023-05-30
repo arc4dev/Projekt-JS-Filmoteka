@@ -2,7 +2,7 @@ import { API_KEY } from './config';
 import { API_LANGUAGE } from './config';
 import { API_URL } from './config';
 import { API_IMG_URL } from './config';
-
+import noImage from '../images/movie.png';
 // Elements
 const modal = document.getElementById('details-modal');
 const movieTitleEl = document.getElementById('movieTitle');
@@ -58,6 +58,9 @@ const populateModalContent = (movieData) => {
   const movieCoverImg = document.createElement('img');
   movieCoverImg.src = `${API_IMG_URL}${movieData.poster_path}`;
   movieCoverImg.alt = `${movieData.title} Cover`;
+  if (movieCoverImg.src === 'https://image.tmdb.org/t/p/w500null') {
+    movieCoverImg.src = `${noImage}`;
+  }
   movieCoverEl.appendChild(movieCoverImg);
 };
 
