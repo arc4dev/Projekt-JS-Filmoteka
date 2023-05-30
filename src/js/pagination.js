@@ -5,71 +5,86 @@ import { moviesContainer } from '../index';
 import { renderLoadingSpinner } from './loadingSpinner';
 
 const paginationContainer = document.querySelector('.pagination-container');
-
-// export const renderMoviesPage = () => {
-//   console.log('Movies:', state.movies); //
-//   const start = (state.page - 1) * state.perPage;
-//   const end = start + state.perPage;
-//   const moviesToRender = state.movies.slice(start, end);
-//   renderMoviesList(moviesToRender);
-// };
+const maxButtonsToShow = 5;
 
 export const changePage = async (page, query) => {
   try {
     renderLoadingSpinner(moviesContainer);
-
     const { results: movies, total_pages } = await searchMovie(page, query);
-
     state.page = page;
     state.movies = movies;
-    state.totalPages = total_pages;
+    state.totalPages = Math.min(total_pages, 10);
 
     renderMoviesList(movies);
-    renderPaginationButtons();
+    renderPaginationButtons(state.totalPages);
   } catch (err) {
     throw err;
   }
 };
 
-export const renderPaginationButtons = () => {
+export const renderPaginationButtons = (maxTotalPages) => {
   paginationContainer.innerHTML = '';
+  const startPage = calculateStartPage();
+  const endPage = calculateEndPage();
+  const buttonsHTML = generatePaginationButtonsHTML(
+    startPage,
+    endPage,
+    maxTotalPages
+  );
+  paginationContainer.innerHTML = buttonsHTML;
+  addClickEventListeners();
+};
 
-  let buttonsHTML = '';
-  const maxButtonsToShow = 3;
-  const totalPages = state.totalPages;
+const calculateStartPage = () => {
   let startPage = state.page - Math.floor(maxButtonsToShow / 2);
-  let endPage = state.page + Math.floor(maxButtonsToShow / 2);
-  if (totalPages <= maxButtonsToShow) {
+  if (state.totalPages <= maxButtonsToShow) {
     startPage = 1;
-    endPage = totalPages;
-  } else {
-    if (state.page <= Math.floor(maxButtonsToShow / 2)) {
-      startPage = 1;
-      endPage = maxButtonsToShow;
-    } else if (state.page >= totalPages - Math.floor(maxButtonsToShow / 2)) {
-      startPage = totalPages - maxButtonsToShow + 1;
-      endPage = totalPages;
-    }
+  } else if (
+    state.page >=
+    state.totalPages - Math.floor(maxButtonsToShow / 2)
+  ) {
+    startPage = Math.max(1, state.page - Math.floor(maxButtonsToShow / 2));
   }
+  return Math.max(1, startPage);
+};
+
+const calculateEndPage = () => {
+  let endPage = state.page + Math.floor(maxButtonsToShow / 2) - 1;
+  if (state.totalPages <= maxButtonsToShow) {
+    endPage = state.totalPages;
+  } else if (state.page <= Math.floor(maxButtonsToShow / 2)) {
+    endPage = maxButtonsToShow;
+  }
+  return Math.min(state.totalPages, endPage);
+};
+
+const generatePaginationButtonsHTML = (startPage, endPage, totalPages) => {
+  let buttonsHTML = '';
   if (startPage > 1) {
-    buttonsHTML += `<button class="pagination-button" data-page="1">1</button>`;
+    buttonsHTML += generatePaginationButtonHTML(1);
     if (startPage > 2) {
       buttonsHTML += `<span class="pagination-ellipsis">...</span>`;
     }
   }
   for (let i = startPage; i <= endPage; i++) {
-    buttonsHTML += `<button class="pagination-button" data-page="${i}">${i}</button>`;
+    buttonsHTML += generatePaginationButtonHTML(i);
   }
   if (endPage < totalPages) {
     if (endPage < totalPages - 1) {
       buttonsHTML += `<span class="pagination-ellipsis">...</span>`;
     }
-    buttonsHTML += `<button class="pagination-button" data-page="${totalPages}">${totalPages}</button>`;
+    buttonsHTML += generatePaginationButtonHTML(totalPages);
   }
+  return buttonsHTML;
+};
 
-  paginationContainer.innerHTML = buttonsHTML;
+const generatePaginationButtonHTML = (pageNumber) => {
+  return `<button class="pagination-button" data-page="${pageNumber}">${pageNumber}</button>`;
+};
 
+const addClickEventListeners = () => {
   const paginationButtons = document.querySelectorAll('.pagination-button');
+
   paginationButtons.forEach((button) => {
     button.addEventListener('click', function () {
       const page = parseInt(button.dataset.page);
