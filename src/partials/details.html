@@ -3,7 +3,16 @@
     <button id="close-modal" type="button" class="details__close">
       &times;
     </button>
-    <div id="movieCover" class="details__cover"></div>
+    <div class="details__cover-wrapper">
+      <div id="movieCover" class="details__cover"></div>
+      <button
+        type="button"
+        id="btn-trailer"
+        class="details__btn details__btn--trailer"
+      >
+        Watch trailer
+      </button>
+    </div>
     <div class="details__content">
       <h2 id="movieTitle" class="details__title"></h2>
       <table>
@@ -41,13 +50,6 @@
           </button>
         </div>
       </div>
-      <button
-        type="button"
-        id="btn-trailer"
-        class="details__btn details__btn--trailer"
-      >
-        Watch trailer
-      </button>
     </div>
   </div>
 </div>
