@@ -11,6 +11,7 @@ import { renderLoadingSpinner } from './js/loadingSpinner';
 import { popup, acceptCookies } from './js/cookies';
 import { addToList } from './js/addToList';
 import { openModal, closeModal } from './js/details';
+import './js/trailer';
 
 // VARIABLES
 const searchForm = document.getElementById('search-form');

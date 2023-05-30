@@ -12,6 +12,7 @@ const movieOriginalTitleEl = document.getElementById('movieOriginalTitle');
 const movieGenreEl = document.getElementById('movieGenre');
 const movieAboutEl = document.getElementById('movieAbout');
 const movieCoverEl = document.getElementById('movieCover');
+const trailerBtn = document.getElementById('btn-trailer');
 
 // Open modal
 const openModal = async (ev) => {
@@ -25,6 +26,8 @@ const openModal = async (ev) => {
       modal.style.display = 'block';
       window.addEventListener('keydown', handleEscapeKey);
       window.addEventListener('click', handleClickOutsideModal);
+
+      trailerBtn.dataset.trailer = movieId;
     }
   }
 };
