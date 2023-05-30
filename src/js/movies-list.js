@@ -1,8 +1,10 @@
 import axios from 'axios';
+import noImage from '../images/movie.png';
 import { API_KEY } from './config';
 import { API_LANGUAGE } from './config';
 import { API_URL } from './config';
 import { TRENDING_URL } from './config';
+
 const moviesContainer = document.querySelector('.covers-container');
 export const genresList = {};
 const defaultMoviesURL = TRENDING_URL;
@@ -100,7 +102,7 @@ const listBuilder = (moviesArray) => {
     coverImg.setAttribute('loading', 'lazy');
     const imgAtrribute = coverImg.getAttribute('src');
     if (imgAtrribute === 'https://image.tmdb.org/t/p/w500null') {
-      coverImg.setAttribute('src', `noImage`);
+      coverImg.setAttribute('src', `${noImage}`);
       coverImg.setAttribute('alt', `no poster found`);
     }
     //title, genre
@@ -130,13 +132,18 @@ const listBuilder = (moviesArray) => {
         movieGenresArray.push(genresList[`${id}`]);
       }
     }
-    const releaseDate = new Date(
-      `${el['release_date'] || el['first_air_date']}`
-    );
-    const voteAverage = el['vote_average'].toFixed(1);
-    movieData.innerHTML = `${movieGenresArray.join(
-      ', '
-    )} | ${releaseDate.getFullYear()} | <span class = cover__figcaption-rating> ${voteAverage}</span>`;
+
+    const releaseDate = el['release_date'] || el['first_air_date'];
+    const releaseYear = releaseDate ? new Date(releaseDate).getFullYear() : '';
+    const voteAverage = el['vote_average'] ? el['vote_average'].toFixed(1) : '';
+
+    movieData.innerHTML = `${movieGenresArray.join(', ')}${
+      movieGenresArray.length > 0 ? '  ' : ''
+    }${releaseYear ? ' | ' + releaseYear : ''}${
+      voteAverage
+        ? ` <span class="cover__figcaption-rating">${voteAverage}</span>`
+        : ''
+    }`;
 
     coverFigcaption.append(movieTitle);
     coverFigcaption.append(movieData);
@@ -144,7 +151,6 @@ const listBuilder = (moviesArray) => {
     movieCoverFigure.append(coverImg);
     movieCoverFigure.append(moreDetailsLabel);
     movieCoverFigure.append(coverFigcaption);
-    // moviesContainer.append(movieCoverFigure);
 
     movieCoverFigure.setAttribute('id', el['id']);
 
