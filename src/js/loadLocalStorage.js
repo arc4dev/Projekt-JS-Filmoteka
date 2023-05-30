@@ -22,21 +22,22 @@ function removeDuplicates(array) {
   }
 }
 
-const renderLocaleStorage = async (typeOfList) => {
+const renderLocaleStorage = (typeOfList) => {
   if (typeOfList === 'btn-watched') {
-    const moviesFromLocalStorage = await removeDuplicates(load('WatchedFilms'));
+    const moviesFromLocalStorage = load('WatchedFilms');
     if (moviesFromLocalStorage === undefined) {
       Notify.failure('Nie ma obejrzanych filmów.');
-    } else await renderMoviesList(moviesFromLocalStorage);
+    } else renderMoviesList(moviesFromLocalStorage);
   } else if (typeOfList === 'btn-queue') {
-    const moviesFromLocalStorage = await removeDuplicates(load('Queue'));
+    const moviesFromLocalStorage = load('Queue');
     if (moviesFromLocalStorage === undefined) {
       Notify.failure('Nie ma filmów w kolejce.');
-    } else await renderMoviesList(moviesFromLocalStorage);
+    } else renderMoviesList(moviesFromLocalStorage);
   }
 };
 
-renderLocaleStorage((typeOfList = 'btn-watched'));
+let typeOfList = 'btn-watched';
+renderLocaleStorage(typeOfList);
 
 btnWatche.addEventListener('click', (ev) => {
   typeOfList = ev.currentTarget.id;
