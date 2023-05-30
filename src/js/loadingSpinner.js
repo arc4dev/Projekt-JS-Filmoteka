@@ -5,7 +5,7 @@ export const renderLoadingSpinner = (htmlDocument) => {
   htmlDocument.innerHTML = `
     <div id="loading-spinner"> 
       <svg>
-        <use href="${icons}/icons.svg#loader-icon"></use>
+        <use href="${icons}#loader-icon"></use>
       </svg>
     </div>
   `;
