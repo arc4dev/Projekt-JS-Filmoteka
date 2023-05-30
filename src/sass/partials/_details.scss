@@ -48,6 +48,12 @@
       min-width: 375px;
     }
   }
+  &__cover-wrapper {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    align-items: center;
+  }
   &__title {
     font-size: 20px;
     line-height: 1.15;
@@ -142,12 +148,9 @@
       transform: scale(1);
     }
     &--trailer {
-      width: 240px;
-      @media screen and (min-width: $breakpointTablet) {
-        width: 265px;
-      }
+      width: 100%;
       @media screen and (min-width: $breakpointDesktop) {
-        width: 280px;
+        width: 95%;
       }
     }
   }
