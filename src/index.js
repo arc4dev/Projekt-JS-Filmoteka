@@ -6,7 +6,6 @@ import { getMovies, renderMoviesList } from './js/movies-list';
 import { searchMovie } from './js/searchMovie';
 import { renderLoadingSpinner } from './js/loadingSpinner';
 import { popup, acceptCookies } from './js/cookies';
-import { addToList } from './js/addToList';
 import { openModal, closeModal } from './js/details';
 import './js/trailer';
 
@@ -34,7 +33,6 @@ const renderTrendingMovies = async () => {
     renderLoadingSpinner(moviesContainer);
     // 2. Get trending movies
     const { results: movies, total_pages } = await getMovies(state.page);
-    addToList(movies);
     // 3. Set movies in state
     state.movies = movies;
     state.totalPages = Math.min(total_pages, 10);
@@ -61,7 +59,6 @@ const renderSearchedMovies = async (e) => {
       state.page,
       formInput.value
     );
-    addToList(movies);
     // 4. Set movies in state
     state.movies = movies;
     state.totalPages = Math.min(total_pages, 10);

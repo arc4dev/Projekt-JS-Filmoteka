@@ -1,3 +1,4 @@
+import { addToList } from './addToList';
 import { API_KEY } from './config';
 import { API_LANGUAGE } from './config';
 import { API_URL } from './config';
@@ -13,6 +14,9 @@ const movieGenreEl = document.getElementById('movieGenre');
 const movieAboutEl = document.getElementById('movieAbout');
 const movieCoverEl = document.getElementById('movieCover');
 const trailerBtn = document.getElementById('btn-trailer');
+const btnAddToWatch = document.getElementById('btn-addToWatch');
+const btnAddToQueue = document.getElementById('btn-addToQueue');
+const closeBtn = document.getElementById('close-modal');
 
 // Open modal
 const openModal = async (ev) => {
@@ -28,6 +32,39 @@ const openModal = async (ev) => {
       window.addEventListener('click', handleClickOutsideModal);
 
       trailerBtn.dataset.trailer = movieId;
+
+      const addToWatchClickHandler = (ev) => {
+        ev.stopPropagation();
+        addToList(movieData, ev.currentTarget.id);
+      };
+
+      btnAddToWatch.addEventListener('click', addToWatchClickHandler);
+
+      const addToQueueClickHandler = (ev) => {
+        ev.stopPropagation();
+        addToList(movieData, ev.currentTarget.id);
+      };
+      btnAddToQueue.addEventListener('click', addToQueueClickHandler);
+
+      const closeModal = () => {
+        modal.style.display = 'none';
+        btnAddToWatch.removeEventListener('click', addToWatchClickHandler);
+        btnAddToQueue.removeEventListener('click', addToQueueClickHandler);
+      };
+
+      closeBtn.addEventListener('click', closeModal);
+
+      window.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape') {
+          closeModal();
+        }
+      });
+
+      modal.addEventListener('click', (event) => {
+        if (event.target === modal) {
+          closeModal();
+        }
+      });
     }
   }
 };
