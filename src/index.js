@@ -27,6 +27,7 @@ export const state = {
   perPage: 20,
   totalPages: 0,
   query: '',
+  genreId: undefined,
   watchedFilms: [],
   queueFilms: [],
 };
@@ -62,7 +63,8 @@ const renderSearchedMovies = async (e) => {
 
     const { results: movies, total_pages } = await searchMovie(
       state.page,
-      formInput.value
+      formInput.value,
+      state.genreId
     );
     // 4. Set movies in state
     state.movies = movies;
