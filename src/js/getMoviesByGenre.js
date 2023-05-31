@@ -14,7 +14,7 @@ export const handleGenreClick = async (event) => {
     state.query = '';
     state.genreId = genresID;
     state.movies = data.results;
-    state.totalPages = Math.min(total_pages, 10);
+    state.totalPages = Math.min(data.total_pages, 10);
 
     console.log(state);
 
