@@ -1,0 +1,67 @@
+/* Form container styles */
+.form-container {
+  max-width: 300px;
+  margin: 0 auto;
+  padding: 20px 15px;
+}
+
+.form-link-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* Form input styles */
+.form-container__label {
+  display: block;
+  margin-bottom: 5px;
+  color: $color-primary-dark;
+  font-size: 1.1rem;
+}
+
+.form-container__input {
+  width: 100%;
+  padding: 10px;
+  margin-bottom: 15px;
+  outline: none;
+  color: $color-footer;
+  border: 1px solid $color-footer;
+  border-radius: $border-radius;
+  box-sizing: border-box;
+  font-size: 16px;
+  transition: $transitionDefault;
+}
+
+.form-container__input:focus {
+  border: 1px solid $color-brand;
+}
+
+/* Sign In button styles */
+.form-container__submit {
+  background-color: $color-brand;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: $border-radius;
+  cursor: pointer;
+  font-size: 1.4rem;
+  transition: $transitionDefault;
+}
+
+.form-container__submit:hover {
+  opacity: 0.9;
+}
+
+/* "Already have an account" link styles */
+.form-container__message {
+  text-align: center;
+}
+
+.form-container__link {
+  color: #2385e8;
+  text-decoration: none;
+}
+
+.form-container__link:hover {
+  text-decoration: underline;
+}

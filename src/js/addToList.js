@@ -1,6 +1,8 @@
 import { state } from '..';
 
-export function addToList(movieData, evCurrentTarget) {
+import { ref } from 'firebase/database';
+
+export function addToList(auth, database, movieData, evCurrentTarget) {
   // save to JSON
   const save = (key, stateMovies) => {
     try {
@@ -23,22 +25,39 @@ export function addToList(movieData, evCurrentTarget) {
       console.error('Set state error: ', error.message);
     }
   };
+  console.log(auth, database);
 
-  // If watch
-  if (
-    evCurrentTarget === 'btn-addToWatch' &&
-    !state.watchedFilms.includes(movieData)
-  ) {
-    state.watchedFilms.push(movieData);
-    save('Watched', state.watchedFilms);
-  }
+  const userId = auth.currentUser.uid;
+  if (!userId) return alert('You are not logged in!');
 
-  // If queue
-  if (
-    evCurrentTarget === 'btn-addToQueue' &&
-    !state.queueFilms.includes(movieData)
-  ) {
-    state.queueFilms.push(movieData);
-    save('Queue', state.queueFilms);
-  }
+  const userRef = database.ref('users/' + userId);
+
+  // Retrieve the user's data from the database
+  userRef.once('value', (snapshot) => {
+    const userData = snapshot.val();
+
+    // If watch
+    if (evCurrentTarget === 'btn-addToWatch') {
+      userData.watchedFilms.push(movieData);
+      // state.watchedFilms.push(movieData);
+      // save('Watched', state.watchedFilms);
+    }
+
+    // If queue
+    if (evCurrentTarget === 'btn-addToQueue') {
+      userData.queuedFilms.push(movieData);
+      // state.queueFilms.push(movieData);
+      // save('Queue', state.queueFilms);
+    }
+
+    // Save the modified user data back to the database
+    userRef
+      .set(userData)
+      .then(() => {
+        console.log('Movies added to the user successfully');
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
 }

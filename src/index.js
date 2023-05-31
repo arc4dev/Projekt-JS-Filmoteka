@@ -3,22 +3,57 @@ import { renderPaginationButtons } from './js/pagination';
 import { handleGenreClick } from './js/getMoviesByGenre';
 import './js/team-list';
 import { getMovies, renderMoviesList } from './js/movies-list';
+import { openModal, closeModal, addMovie } from './js/details';
 import { searchMovie } from './js/searchMovie';
 import { renderLoadingSpinner } from './js/loadingSpinner';
 import { popup, acceptCookies } from './js/cookies';
-import { openModal, closeModal } from './js/details';
 import './js/trailer';
 import { loadLocalStorage, renderLocalStorage } from './js/loadLocalStorage';
 
 // VARIABLES
 const searchForm = document.getElementById('search-form');
+const signupForm = document.getElementById('signup-form');
+const loginForm = document.getElementById('login-form');
 
 export const moviesContainer = document.querySelector('.covers-container');
 const closeBtn = document.getElementById('close-modal');
 const genresContainer = document.querySelector('.container-genres');
 
+const linkLogIn = document.getElementById('login-link');
+const linkLogOut = document.getElementById('logout-link');
+
 const btnWatch = document.getElementById('btn-watched');
 const btnQueue = document.getElementById('btn-queue');
+
+const btnAddToWatch = document.getElementById('btn-addToWatch');
+const btnAddToQueue = document.getElementById('btn-addToQueue');
+
+// FIREBASE
+
+// Your web app's Firebase configuration
+// For Firebase JS SDK v7.20.0 and later, measurementId is optional
+const firebaseConfig = {
+  apiKey: 'AIzaSyCc7Q1iBDkzj9T_-NMThRV3Tg2VNp92iZU',
+  authDomain: 'goit---filmoteka-984a5.firebaseapp.com',
+  projectId: 'goit---filmoteka-984a5',
+  storageBucket: 'goit---filmoteka-984a5.appspot.com',
+  messagingSenderId: '796832495137',
+  appId: '1:796832495137:web:399844076cd89eef56d560',
+};
+
+// Import the functions you need from the SDKs you
+import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { getDatabase } from 'firebase/database';
+import { initializeApp } from 'firebase/app';
+
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const database = getDatabase(app);
+
+import { loginUser, registerUser, logOutUser } from './js/authentication';
+
+// TODO: Add SDKs for Firebase products that you want to use
+// https://firebase.google.com/docs/web/setup#available-libraries
 
 // STATE
 export const state = {
@@ -103,10 +138,14 @@ if (searchForm) {
 // Listeners
 
 // Open modal
-moviesContainer.addEventListener('click', openModal);
+if (moviesContainer) {
+  moviesContainer.addEventListener('click', openModal);
+}
 
 // Close modal
-closeBtn.addEventListener('click', closeModal);
+if (closeBtn) {
+  closeBtn.addEventListener('click', closeModal);
+}
 
 // Filter movies by genre
 if (genresContainer) {
@@ -129,4 +168,57 @@ if (btnWatch && btnQueue) {
     typeOfList = ev.currentTarget.id;
     renderLocalStorage(typeOfList);
   });
+}
+
+if (signupForm) {
+  signupForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const name = e.target.elements.name.value;
+    const email = e.target.elements.email.value;
+    const password = e.target.elements.password.value;
+
+    // Register a new user with email and password
+    const user = await registerUser({ auth, database, name, email, password });
+
+    console.log('User signed in!' + user);
+    window.location.href = '/';
+  });
+}
+
+if (loginForm) {
+  loginForm.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const email = e.target.elements.email.value;
+    const password = e.target.elements.password.value;
+
+    // Register a new user with email and password
+    const user = await loginUser({ auth, database, email, password });
+    console.log('User logged in!', user);
+    window.location.href = '/';
+  });
+}
+
+// Auth
+onAuthStateChanged(auth, (user) => {
+  if (user) {
+    linkLogOut?.classList.remove('is-hidden');
+    linkLogIn?.classList.add('is-hidden');
+  } else {
+    linkLogOut.classList.add('is-hidden');
+    linkLogIn.classList.remove('is-hidden');
+  }
+});
+
+if (linkLogOut) {
+  linkLogOut.addEventListener('click', async () => {
+    await logOutUser(auth);
+    window.location.href = '/';
+  });
+}
+
+if (btnAddToWatch && btnAddToQueue) {
+  btnAddToWatch.addEventListener('click', (e) => addMovie(e, auth, database));
+  btnAddToQueue.addEventListener('click', (e) => addMovie(e, auth, database));
 }

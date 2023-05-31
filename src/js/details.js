@@ -14,9 +14,12 @@ const movieGenreEl = document.getElementById('movieGenre');
 const movieAboutEl = document.getElementById('movieAbout');
 const movieCoverEl = document.getElementById('movieCover');
 const trailerBtn = document.getElementById('btn-trailer');
-const btnAddToWatch = document.getElementById('btn-addToWatch');
-const btnAddToQueue = document.getElementById('btn-addToQueue');
 const closeBtn = document.getElementById('close-modal');
+
+export const addMovie = (e, auth, database, movieData) => {
+  e.stopPropagation();
+  addToList(auth, database, movieData, e.currentTarget.id);
+};
 
 // Open modal
 const openModal = async (ev) => {
@@ -32,17 +35,6 @@ const openModal = async (ev) => {
       window.addEventListener('click', handleClickOutsideModal);
 
       trailerBtn.dataset.trailer = movieId;
-
-      const addMovie = (e) => {
-        e.stopPropagation();
-        addToList(movieData, e.currentTarget.id);
-      };
-
-      // Add to watched
-      btnAddToWatch.addEventListener('click', addMovie);
-
-      // Add to queue
-      btnAddToQueue.addEventListener('click', addMovie);
 
       const closeModal = () => {
         modal.style.display = 'none';

@@ -45,40 +45,42 @@ const closeModalHandler = (ev) => {
 //   }
 // });
 
-trailerBtn.addEventListener('click', async () => {
-  const movieId = trailerBtn.dataset.trailer;
+if (trailerBtn) {
+  trailerBtn.addEventListener('click', async () => {
+    const movieId = trailerBtn.dataset.trailer;
 
-  const options = {
-    method: 'GET',
-    headers: {
-      accept: 'application/json',
-    },
-  };
+    const options = {
+      method: 'GET',
+      headers: {
+        accept: 'application/json',
+      },
+    };
 
-  const url = `${API_URL}movie/${movieId}/videos?language=en-US&api_key=${API_KEY}`;
+    const url = `${API_URL}movie/${movieId}/videos?language=en-US&api_key=${API_KEY}`;
 
-  try {
-    const response = await fetch(url, options);
-    const data = await response.json();
+    try {
+      const response = await fetch(url, options);
+      const data = await response.json();
 
-    if (data.results.length > 0) {
-      const trailerKey = data.results[0].key;
+      if (data.results.length > 0) {
+        const trailerKey = data.results[0].key;
 
-      const content = `<iframe width="800" height="450" src="https://www.youtube.com/embed/${trailerKey}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
+        const content = `<iframe width="800" height="450" src="https://www.youtube.com/embed/${trailerKey}" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>`;
 
-      lightboxInstance = basicLightbox.create(content);
-      lightboxInstance.show();
+        lightboxInstance = basicLightbox.create(content);
+        lightboxInstance.show();
 
-      window.addEventListener('keydown', closeModalHandler);
-    } else {
-      Notify.warning(
-        'We apologize, but there is no trailer available for this movie.'
+        window.addEventListener('keydown', closeModalHandler);
+      } else {
+        Notify.warning(
+          'We apologize, but there is no trailer available for this movie.'
+        );
+      }
+    } catch (error) {
+      Notify.failure(
+        'We apologize for the inconvenience, but an unexpected error has occurred.'
       );
+      console.error(error);
     }
-  } catch (error) {
-    Notify.failure(
-      'We apologize for the inconvenience, but an unexpected error has occurred.'
-    );
-    console.error(error);
-  }
-});
+  });
+}
