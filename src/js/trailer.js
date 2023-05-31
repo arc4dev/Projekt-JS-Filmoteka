@@ -37,7 +37,7 @@ trailerBtn.addEventListener('click', async () => {
     window.addEventListener('keydown', closeModalHandler);
   } catch (error) {
     Notify.failure(
-      'We apologize, but there is no trailer available for this movie.'
+      'We apologize for the inconvenience, but an unexpected error has occurred.'
     );
   }
 });
