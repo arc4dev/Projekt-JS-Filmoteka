@@ -1,33 +1,44 @@
-const dataBaseOfWatchedFilms = [];
-const dataBaseOfQueueFilms = [];
+import { state } from '..';
 
 export function addToList(movieData, evCurrentTarget) {
-  console.log(evCurrentTarget);
-  // console.log(movieData);
-
-  const save = (key, value) => {
+  // save to JSON
+  const save = (key, stateMovies) => {
     try {
-      const serializedState = JSON.stringify(value);
+      const storageState = JSON.parse(localStorage.getItem(key)) || [];
+
+      // Check if there is any duplicated movie
+      const updatedState = storageState
+        .concat(stateMovies)
+        .reduce((acc, movie) => {
+          // Check if the movie ID is already present in the accumulator array
+          if (!acc.some((storedMovie) => storedMovie.id === movie.id)) {
+            acc.push(movie);
+          }
+          return acc;
+        }, []);
+
+      const serializedState = JSON.stringify(updatedState);
       localStorage.setItem(key, serializedState);
     } catch (error) {
       console.error('Set state error: ', error.message);
     }
   };
 
+  // If watch
   if (
     evCurrentTarget === 'btn-addToWatch' &&
-    !dataBaseOfWatchedFilms.includes(movieData)
+    !state.watchedFilms.includes(movieData)
   ) {
-    dataBaseOfWatchedFilms.push(movieData);
-    save('WatchedFilms', dataBaseOfWatchedFilms);
+    state.watchedFilms.push(movieData);
+    save('Watched', state.watchedFilms);
   }
+
+  // If queue
   if (
     evCurrentTarget === 'btn-addToQueue' &&
-    !dataBaseOfQueueFilms.includes(movieData)
+    !state.queueFilms.includes(movieData)
   ) {
-    dataBaseOfQueueFilms.push(movieData);
-    save('Queue', dataBaseOfQueueFilms);
+    state.queueFilms.push(movieData);
+    save('Queue', state.queueFilms);
   }
-  console.log(dataBaseOfWatchedFilms);
-  console.log(dataBaseOfQueueFilms);
 }

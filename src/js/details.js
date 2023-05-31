@@ -33,23 +33,21 @@ const openModal = async (ev) => {
 
       trailerBtn.dataset.trailer = movieId;
 
-      const addToWatchClickHandler = (ev) => {
-        ev.stopPropagation();
-        addToList(movieData, ev.currentTarget.id);
+      const addMovie = (e) => {
+        e.stopPropagation();
+        addToList(movieData, e.currentTarget.id);
       };
 
-      btnAddToWatch.addEventListener('click', addToWatchClickHandler);
+      // Add to watched
+      btnAddToWatch.addEventListener('click', addMovie);
 
-      const addToQueueClickHandler = (ev) => {
-        ev.stopPropagation();
-        addToList(movieData, ev.currentTarget.id);
-      };
-      btnAddToQueue.addEventListener('click', addToQueueClickHandler);
+      // Add to queue
+      btnAddToQueue.addEventListener('click', addMovie);
 
       const closeModal = () => {
         modal.style.display = 'none';
-        btnAddToWatch.removeEventListener('click', addToWatchClickHandler);
-        btnAddToQueue.removeEventListener('click', addToQueueClickHandler);
+        btnAddToWatch.removeEventListener('click', addMovie);
+        btnAddToQueue.removeEventListener('click', addMovie);
       };
 
       closeBtn.addEventListener('click', closeModal);

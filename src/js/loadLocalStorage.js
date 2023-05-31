@@ -1,50 +1,43 @@
 import { Notify } from 'notiflix';
 import { renderMoviesList } from './movies-list';
+import { state } from '..';
 
-const btnWatche = document.getElementById('btn-watched');
-const btnQueue = document.getElementById('btn-queue');
-
-//function load from localstorage
-const load = (key) => {
+export const loadLocalStorage = () => {
   try {
-    const serializedState = localStorage.getItem(key);
-    return serializedState === null ? undefined : JSON.parse(serializedState);
+    let watchState = localStorage.getItem('Watched');
+    let queueState = localStorage.getItem('Queue');
+
+    if (!watchState || watchState.length === 0) watchState = [];
+    if (!queueState || queueState.length === 0) queueState = [];
+
+    state.watchedFilms = JSON.parse(watchState);
+    state.queueFilms = JSON.parse(queueState);
+
+    console.log(state);
   } catch (error) {
     console.error('Get state error: ', error.message);
   }
 };
 
-function removeDuplicates(array) {
-  if (array) {
-    return array.filter((value, index, self) => {
-      return self.indexOf(value) === index;
-    });
-  }
-}
+// function removeDuplicates(array) {
+//   if (array) {
+//     return array.filter((value, index, self) => {
+//       return self.indexOf(value) === index;
+//     });
+//   }
+// }
 
-const renderLocaleStorage = (typeOfList) => {
-  if (typeOfList === 'btn-watched') {
-    const moviesFromLocalStorage = load('WatchedFilms');
-    if (moviesFromLocalStorage === undefined) {
-      Notify.failure('Nie ma obejrzanych filmów.');
-    } else renderMoviesList(moviesFromLocalStorage);
-  } else if (typeOfList === 'btn-queue') {
-    const moviesFromLocalStorage = load('Queue');
-    if (moviesFromLocalStorage === undefined) {
-      Notify.failure('Nie ma filmów w kolejce.');
-    } else renderMoviesList(moviesFromLocalStorage);
+export const renderLocalStorage = (typeOfList) => {
+  const filmList =
+    typeOfList === 'btn-watched' ? state.watchedFilms : state.queueFilms;
+
+  if (filmList.length === 0) {
+    return Notify.failure(
+      `Nie masz ${
+        typeOfList === 'btn-watched' ? 'obejrzanych' : 'zakolejkowanych'
+      } filmów!`
+    );
   }
+
+  renderMoviesList(filmList);
 };
-
-let typeOfList = 'btn-watched';
-renderLocaleStorage(typeOfList);
-
-btnWatche.addEventListener('click', (ev) => {
-  typeOfList = ev.currentTarget.id;
-  renderLocaleStorage(typeOfList);
-});
-
-btnQueue.addEventListener('click', (ev) => {
-  typeOfList = ev.currentTarget.id;
-  renderLocaleStorage(typeOfList);
-});
