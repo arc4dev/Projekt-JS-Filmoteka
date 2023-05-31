@@ -1,7 +1,7 @@
 import axios from 'axios';
 import { API_URL, API_KEY, API_LANGUAGE } from './config';
-import { genresList } from './movies-list';
-import { renderMoviesList, renderPaginationButtons } from './movies-list';
+import { renderPaginationButtons } from './pagination';
+import { renderMoviesList, genresList } from './movies-list';
 
 export const handleGenreClick = async (event) => {
   const selectedGenre = event.target.textContent;
