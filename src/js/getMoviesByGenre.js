@@ -19,7 +19,7 @@ export const handleGenreClick = async (event) => {
     console.log(state);
 
     renderMoviesList(state.movies);
-    renderPaginationButtons();
+    renderPaginationButtons(state.totalPages);
   } catch (err) {
     console.error(err);
   }
