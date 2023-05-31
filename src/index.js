@@ -60,7 +60,7 @@ const renderSearchedMovies = async (e) => {
     renderLoadingSpinner(moviesContainer);
     // 3. Get movies query
     const { results: movies, total_pages } = await searchMovie(
-      state.page,
+      (state.page = 1),
       formInput.value,
       state.genreId
     );
