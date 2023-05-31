@@ -7,10 +7,14 @@ import { renderLoadingSpinner } from './loadingSpinner';
 const paginationContainer = document.querySelector('.pagination-container');
 const maxButtonsToShow = 5;
 
-export const changePage = async (page, query) => {
+export const changePage = async (page, query, genreId) => {
   try {
     renderLoadingSpinner(moviesContainer);
-    const { results: movies, total_pages } = await searchMovie(page, query);
+    const { results: movies, total_pages } = await searchMovie(
+      page,
+      query,
+      genreId
+    );
     state.page = page;
     state.movies = movies;
     state.totalPages = Math.min(total_pages, 10);
@@ -88,7 +92,7 @@ const addClickEventListeners = () => {
   paginationButtons.forEach((button) => {
     button.addEventListener('click', function () {
       const page = parseInt(button.dataset.page);
-      changePage(page, state.query);
+      changePage(page, state.query, state.genreId);
     });
   });
 };
