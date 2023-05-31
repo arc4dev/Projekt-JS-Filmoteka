@@ -5,6 +5,7 @@ import 'basiclightbox/dist/basicLightbox.min.css';
 import { Notify } from 'notiflix';
 
 const trailerBtn = document.getElementById('btn-trailer');
+let lightboxInstance;
 
 const closeModalHandler = (ev) => {
   if (ev.code === 'Escape') {
