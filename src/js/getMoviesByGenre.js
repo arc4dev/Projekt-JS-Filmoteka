@@ -9,7 +9,6 @@ export const handleGenreClick = async (event) => {
   try {
     const genresID = getGenreID(selectedGenre);
     const data = await getMoviesByGenre(genresID);
-    console.log(data);
 
     state.query = '';
     state.genreId = genresID;
