@@ -53,14 +53,12 @@ const renderTrendingMovies = async () => {
 
 const renderSearchedMovies = async (e) => {
   try {
-    e.preventDefault();
     // 1. Get input value
     const formInput = e.target.elements.searchInput;
     if (!formInput) return;
     // 2. Render loading spinner
     renderLoadingSpinner(moviesContainer);
     // 3. Get movies query
-
     const { results: movies, total_pages } = await searchMovie(
       state.page,
       formInput.value,
@@ -92,7 +90,14 @@ if (searchForm) {
 
 // Render movies on search
 if (searchForm) {
-  searchForm.addEventListener('submit', renderSearchedMovies);
+  searchForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+
+    state.page = 1;
+    state.genreId = undefined;
+
+    renderSearchedMovies(e);
+  });
 }
 
 // Listeners
