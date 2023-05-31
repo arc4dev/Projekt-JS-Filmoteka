@@ -6,7 +6,6 @@ const genres = document.querySelector('.container-genres');
 
 export async function searchMovie(page, searchValue, genreId) {
   try {
-    console.log(page, searchValue, genreId);
     let searchUrl = undefined;
     if (searchValue !== '') {
       searchUrl = `${URL_SEARCH}api_key=${API_KEY}&language=${API_LANGUAGE}&query=${searchValue.trim()}&page=${page}`;
@@ -14,11 +13,8 @@ export async function searchMovie(page, searchValue, genreId) {
     }
 
     if (genreId !== undefined) {
-      console.log('genre');
       searchUrl = `${API_URL}discover/movie?api_key=${API_KEY}&language=${API_LANGUAGE}&with_genres=${genreId}&sort_by=popularity.desc&page=${page}`;
     }
-
-    console.log(searchUrl);
 
     let data = await getMovies(page, searchUrl);
 
