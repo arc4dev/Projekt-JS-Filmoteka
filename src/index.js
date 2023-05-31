@@ -8,6 +8,7 @@ import { renderLoadingSpinner } from './js/loadingSpinner';
 import { popup, acceptCookies } from './js/cookies';
 import { openModal, closeModal } from './js/details';
 import './js/trailer';
+import { loadLocalStorage, renderLocalStorage } from './js/loadLocalStorage';
 
 // VARIABLES
 const searchForm = document.getElementById('search-form');
@@ -15,7 +16,9 @@ const searchForm = document.getElementById('search-form');
 export const moviesContainer = document.querySelector('.covers-container');
 const closeBtn = document.getElementById('close-modal');
 const genresContainer = document.querySelector('.container-genres');
-const genreLinks = genresContainer.querySelectorAll('.genres');
+
+const btnWatch = document.getElementById('btn-watched');
+const btnQueue = document.getElementById('btn-queue');
 
 // STATE
 export const state = {
@@ -24,6 +27,8 @@ export const state = {
   perPage: 20,
   totalPages: 0,
   query: '',
+  watchedFilms: [],
+  queueFilms: [],
 };
 
 // FUNCTIONS
@@ -75,6 +80,9 @@ const renderSearchedMovies = async (e) => {
 ////////////////
 // START
 
+// Load localstorage
+loadLocalStorage();
+
 // Render trending movies on load
 if (searchForm) {
   renderTrendingMovies();
@@ -94,6 +102,24 @@ moviesContainer.addEventListener('click', openModal);
 closeBtn.addEventListener('click', closeModal);
 
 // Filter movies by genre
-genreLinks.forEach((link) => {
-  link.addEventListener('click', handleGenreClick);
-});
+if (genresContainer) {
+  genresContainer.querySelectorAll('.genres').forEach((link) => {
+    link.addEventListener('click', handleGenreClick);
+  });
+}
+
+// Library sub-page
+if (btnWatch && btnQueue) {
+  let typeOfList = 'btn-watched'; // btn-watched or btn-queue
+  renderLocalStorage(typeOfList);
+
+  btnWatch.addEventListener('click', (ev) => {
+    typeOfList = ev.currentTarget.id;
+    renderLocalStorage(typeOfList);
+  });
+
+  btnQueue.addEventListener('click', (ev) => {
+    typeOfList = ev.currentTarget.id;
+    renderLocalStorage(typeOfList);
+  });
+}
