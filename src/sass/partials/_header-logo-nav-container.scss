@@ -9,7 +9,9 @@
     font-size: 0px;
   }
   &_logo-icon {
-    display: block;
+    @include flex();
+    color: inherit;
+    gap: 4px;
   }
   &_title {
     display: none;
@@ -26,6 +28,7 @@
   &_link {
     font-family: $font-primary;
     color: $color-primary;
+    font-size: 1.2rem;
     line-height: 14px;
     display: inline-block;
     position: relative;

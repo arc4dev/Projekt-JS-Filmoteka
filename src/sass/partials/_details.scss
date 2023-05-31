@@ -11,6 +11,10 @@
   scrollbar-width: thin;
   scrollbar-color: transparent transparent;
   padding-bottom: 20px;
+
+  @media screen and (min-width: $breakpointTablet) {
+    padding-top: 180px;
+  }
 }
 
 .details {
